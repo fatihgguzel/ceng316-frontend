@@ -5,15 +5,22 @@ import {
   Routes
 } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
-import { UserContext } from './Providers/context';
+import { UserContextProvider } from './Providers/context';
+import Navbar from './components/navbar/Navbar';
+
+
 function App() {
   return (
     <div className="App">
-      <UserContext.Provider> 
-        <Routes>
-          <Route exact path="/" element={<LoginPage/>} />
-        </Routes>
-      </UserContext.Provider>
+      <UserContextProvider>
+        <Navbar></Navbar>
+        <div className="content">
+          <Routes>
+            <Route exact path="/" element={<LoginPage/>} />
+            <Route path='/dashboard' element={null} />
+          </Routes>
+        </div>
+      </UserContextProvider>
     </div>
   );
 }

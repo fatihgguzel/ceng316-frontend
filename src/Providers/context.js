@@ -1,8 +1,17 @@
 import React, { createContext, useState } from 'react';
 
-export const UserContext = createContext();
+export const UserContext = createContext({
+  email: '',
+  password: '',
+  authToken: '',
+  role: '',
+  setEmail: () => {},
+  setPassword: () => {},
+  setAuthToken: () => {},
+  setRole: () => {}
+});
 
-export const UserProvider = ({ children }) => {
+export const UserContextProvider = ({ children }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authToken, setAuthToken] = useState('');
@@ -16,11 +25,11 @@ export const UserProvider = ({ children }) => {
     setEmail,
     setPassword,
     setAuthToken,
-    setRole,
+    setRole
   };
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{user}}>
       {children}
     </UserContext.Provider>
   );
