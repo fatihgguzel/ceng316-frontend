@@ -18,6 +18,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<LoginPage/>} />
             <Route path='/dashboard' element={null} />
+            <Route path="/head-of-department" element={<HeadOfDepartmentPage />} />
           </Routes>
         </div>
       </UserContextProvider>
