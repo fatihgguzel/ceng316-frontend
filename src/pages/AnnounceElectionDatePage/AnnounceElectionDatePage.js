@@ -6,21 +6,33 @@ import './AnnounceElectionDatePage.css';
 const AnnounceElectionDate = () => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleStartDateChange = (date) => {
     setSelectedStartDate(date);
+    setErrorMessage('');
   };
 
   const handleEndDateChange = (date) => {
     setSelectedEndDate(date);
+    setErrorMessage('');
   };
 
   const handleAnnounceDate = () => {
     if (selectedStartDate && selectedEndDate) {
-      // Logic to announce the election date range
-      console.log('Announcing election dates:', selectedStartDate, selectedEndDate);
+      const startDate = new Date(selectedStartDate);
+      const endDate = new Date(selectedEndDate);
+
+      const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+      const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+      if (diffDays > 30) {
+        setErrorMessage('Date range is incorrect. 30 days is the maximum permitted period.');
+      } else {
+        console.log('Announcing election dates:', selectedStartDate, selectedEndDate);
+      }
     } else {
-      console.log('Please select start and end dates');
+      setErrorMessage('Please select start and end dates');
     }
   };
 
@@ -29,6 +41,7 @@ const AnnounceElectionDate = () => {
       <h2>Announce Election Date</h2>
       <div className="calendars-container">
         <div className="date-picker-container">
+          <p>Start Date</p>
           <Calendar
             className="react-calendar"
             onChange={handleStartDateChange}
@@ -36,6 +49,7 @@ const AnnounceElectionDate = () => {
           />
         </div>
         <div className="date-picker-container">
+          <p>End Date</p>
           <Calendar
             className="react-calendar"
             onChange={handleEndDateChange}
@@ -46,6 +60,7 @@ const AnnounceElectionDate = () => {
       <button onClick={handleAnnounceDate} disabled={!selectedStartDate || !selectedEndDate}>
         Start Election
       </button>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
