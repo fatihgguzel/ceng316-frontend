@@ -7,6 +7,7 @@ import {
 import LoginPage from './pages/LoginPage/LoginPage';
 import { UserContextProvider } from './Providers/context';
 import Navbar from './components/navbar/Navbar';
+import MainPage from './pages/MainPage/MainPage';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<LoginPage/>} />
-            <Route path='/dashboard' element={null} />
+            <Route path='/dashboard' element={<MainPage/>} />
           </Routes>
         </div>
       </UserContextProvider>

@@ -12,3 +12,19 @@ html{
 #root{
     height: 100%;
 }
+
+.btn {
+    color: #fff;
+    background-color: #a30000;
+    border-color: #a30000;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
+    border-radius: 3px;
+    border: 1px solid #b6bcbe;
+    height: 25px;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: #940000;
+    border-color: #8a0000;
+}
