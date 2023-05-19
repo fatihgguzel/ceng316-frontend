@@ -18,26 +18,34 @@ export default function LoginPage(){
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (username === '') {
+            setErrorMessage('E-posta boş bırakılamaz.');
+            return;
+        }
+
+         if (password === '')  {
+            setErrorMessage('Şifre boş bırakılamaz.');
+            return;
+        }
+
         const email = username + domain;
         const isValidEmail = email in userDictionary;
 
         if (isValidEmail) {
-            const isValidPassword = userDictionary[email] === password;
+            const isValidPassword = userDictionary[email].password === password;
 
             if (isValidPassword) {
-                const userRole = domain === '@std.iyte.edu.tr' ? 'student' : 'admin';
-
                 user.setEmail(email);
                 user.setPassword(password);
-                user.setAuthToken(Math.random);
-                user.setRole(userRole);
+                user.setAuthToken(Math.random());
+                user.setRole(userDictionary[email].role);
 
                 navigate('/dashboard');
             } else {
-                setErrorMessage('Hatalı şifre.')
+                setErrorMessage('E-posta veya şifre hatalı.')
             }
         } else {
-            setErrorMessage('Bu e-postaya kayıtlı hesap bulunmamakta.')
+            setErrorMessage('E-posta veya şifre hatalı.')
         }
     }
 
