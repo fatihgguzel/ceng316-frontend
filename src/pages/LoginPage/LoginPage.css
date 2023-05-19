@@ -31,7 +31,7 @@
 }
 
 .login-credentials-wrapper{
-    margin-top: 100px;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
 }
@@ -49,4 +49,27 @@
 .login-credentials:focus{
     border-color: #a30000;
     outline: none;
+}
+
+.login-forgot-password {
+    margin-top: 60px;
+}
+
+#email-username{
+    width: 100px;
+}
+
+#email-domain{
+    width: 100px;
+    height: 28px;
+    padding-left: 0;
+}
+
+#login-btn{
+    margin-top: 15px;
+}
+
+#login-error-message{
+    margin-top: 15px;
+    color: red;
 }
