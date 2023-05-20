@@ -15,7 +15,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<LoginPage />} />
             <Route path="/dashboard" element={<MainPage />} />
-            <Route path="/announceElectionDate" element={<AnnounceElectionDatePage />} />
+            <Route path="/announce-election-date" element={<AnnounceElectionDatePage />} />
           </Routes>
         </div>
       </UserContextProvider>

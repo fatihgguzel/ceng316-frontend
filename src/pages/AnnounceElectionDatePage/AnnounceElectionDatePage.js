@@ -1,35 +1,29 @@
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import './AnnounceElectionDatePage.css';
 
-const AnnounceElectionDate = () => {
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const [selectedEndDate, setSelectedEndDate] = useState(null);
+export default function AnnounceElectionDate() {
+  const today = new Date();
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleStartDateChange = (date) => {
-    setSelectedStartDate(date);
-    setErrorMessage('');
-  };
-
-  const handleEndDateChange = (date) => {
-    setSelectedEndDate(date);
-    setErrorMessage('');
-  };
-
   const handleAnnounceDate = () => {
-    if (selectedStartDate && selectedEndDate) {
-      const startDate = new Date(selectedStartDate);
-      const endDate = new Date(selectedEndDate);
+    if (startDate >= endDate) {
+      setErrorMessage("The start day of the election cannot be the same day as the end date or later.");
+    } else if (startDate && endDate) {
+      const startDateObj = new Date(startDate);
+      const endDateObj = new Date(endDate);
 
-      const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+      const timeDiff = Math.abs(endDateObj.getTime() - startDateObj.getTime());
       const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
       if (diffDays > 30) {
         setErrorMessage('Date range is incorrect. 30 days is the maximum permitted period.');
       } else {
-        console.log('Announcing election dates:', selectedStartDate, selectedEndDate);
+        console.log('Announcing election dates:', startDateObj, endDateObj);
       }
     } else {
       setErrorMessage('Please select start and end dates');
@@ -42,27 +36,39 @@ const AnnounceElectionDate = () => {
       <div className="calendars-container">
         <div className="date-picker-container">
           <p>Start Date</p>
-          <Calendar
-            className="react-calendar"
-            onChange={handleStartDateChange}
-            value={selectedStartDate}
+          <DatePicker
+            className="react-datepicker"
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            minDate={today}
+            dateFormat="dd/MM/yyyy"
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={15}
+            todayButton="Today"
+            placeholderText="Select start date"
           />
         </div>
         <div className="date-picker-container">
           <p>End Date</p>
-          <Calendar
-            className="react-calendar"
-            onChange={handleEndDateChange}
-            value={selectedEndDate}
+          <DatePicker
+            className="react-datepicker"
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            minDate={today}
+            dateFormat="dd/MM/yyyy"
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={15}
+            todayButton="Today"
+            placeholderText="Select end date"
           />
         </div>
       </div>
-      <button onClick={handleAnnounceDate} disabled={!selectedStartDate || !selectedEndDate}>
+      <button onClick={handleAnnounceDate} disabled={!startDate || !endDate}>
         Start Election
       </button>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
-};
-
-export default AnnounceElectionDate;
+}
