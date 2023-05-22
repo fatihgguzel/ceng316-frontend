@@ -52,15 +52,13 @@
 }
 
 .login-forgot-password {
-    margin-top: 60px;
-}
-
-.gray-text{
+    margin-top: 60px;  
     color: gray;
+    transition: color 0.3s;
 }
 
-.blue-text{
-    color: blue;
+.login-forgot-password:hover {
+  color: blue;
 }
 
 #email-username{
