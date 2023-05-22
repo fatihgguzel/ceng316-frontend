@@ -32,10 +32,10 @@ export default function AnnounceElectionDate() {
 
   return (
     <div className="announce-date-container">
-      <h2>Announce Election Date</h2>
+      <h2 id='announce-h2'>Announce Election Date</h2>
       <div className="calendars-container">
         <div className="date-picker-container">
-          <p>Start Date</p>
+          <p id='announce-p'>Start Date</p>
           <DatePicker
             className="react-datepicker"
             selected={startDate}
@@ -50,7 +50,7 @@ export default function AnnounceElectionDate() {
           />
         </div>
         <div className="date-picker-container">
-          <p>End Date</p>
+          <p id='announce-p'>End Date</p>
           <DatePicker
             className="react-datepicker"
             selected={endDate}
@@ -65,10 +65,10 @@ export default function AnnounceElectionDate() {
           />
         </div>
       </div>
-      <button onClick={handleAnnounceDate} disabled={!startDate || !endDate}>
+      <button id='se-button' onClick={handleAnnounceDate} disabled={!startDate || !endDate}>
         Start Election
       </button>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage  && <p className="error-message-announce-page">{errorMessage}</p>}
     </div>
   );
 }

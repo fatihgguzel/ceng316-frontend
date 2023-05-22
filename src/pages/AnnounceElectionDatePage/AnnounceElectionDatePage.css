@@ -3,22 +3,22 @@
   flex-direction: column;
   align-items: center;
   padding: 40px;
-  margin: 100px auto; /* Center the container horizontally */
-  max-width: 500px; /* Added to limit the width of the container */
-  background-color: #f9f9f9; /* Added background color for a modern look */
-  border-radius: 8px; /* Added border radius for rounded corners */
+  margin: 100px auto; 
+  max-width: 500px; 
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-h2 {
+#announce-h2 {
   text-align: center;
-  margin-bottom: 20px; /* Added margin-bottom for spacing */
-  color: #333; /* Updated text color */
+  margin-bottom: 20px; 
+  color: #333; 
 }
 
-p {
+#announce-p {
   font-weight: bold;
-  color: #555; /* Updated text color */
+  color: #555; 
 }
 
 .calendars-container {
@@ -48,7 +48,7 @@ p {
   border-bottom: 1px solid #ccc;
   padding: 10px;
   text-align: center;
-  color: #333; /* Updated text color */
+  color: #333; 
 }
 
 .react-datepicker__day--today {
@@ -75,7 +75,7 @@ p {
   font-weight: bold;
 }
 
-button {
+#se-button {
   border: none;
   background-color: #a30000;
   color: #fff;
@@ -84,17 +84,17 @@ button {
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Added transition effect */
+  transition: background-color 0.3s ease; 
 }
 
-button:hover {
+#se-button:hover {
   background-color: #8c0000;
 }
 
-.error-message {
-  margin-top: 20px; /* Updated margin-top for spacing */
+.error-message-announce-page {
+  margin-top: 20px; 
   color: #a30000;
   font-size: 16px;
   font-weight: bold;
-  text-align: center; /* Center the error message */
+  text-align: center; 
 }
