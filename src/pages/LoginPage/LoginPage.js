@@ -11,6 +11,7 @@ export default function LoginPage(){
     const [domain, setDomain] = useState('@std.iyte.edu.tr');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
+    const [isPasswordResetClicked, setIsPasswordResetClicked] = useState(false);
 
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
@@ -49,6 +50,10 @@ export default function LoginPage(){
         }
     }
 
+    const handlePasswordResetClick = () => {
+        setIsPasswordResetClicked(true);
+      };
+
     return(
         <div className="login-body">
             <div className="login-cover">
@@ -68,7 +73,13 @@ export default function LoginPage(){
                         <input value={password} onChange={(e) => setPassword(e.target.value)} className="login-credentials login-password" id='password' type="password" placeholder="Şifre" />
                         <button className='btn' id='login-btn' type="submit">Oturum Aç</button>
                     </form>
-                    <a className='login-forgot-password' href='https://mail-app.iyte.edu.tr/ForgotMyPassword' target='_blank' rel='noopener noreferrer'>Şifremi Unuttum</a>
+                    <a 
+                    className={`login-forgot-password ${isPasswordResetClicked ? 'blue-text' : 'gray-text'}`}
+                    href='https://mail-app.iyte.edu.tr/ForgotMyPassword'
+                    target='_blank' 
+                    rel='noopener noreferrer'  
+                    onClick={handlePasswordResetClick}
+                    >Şifremi Unuttum</a>
                 </div>
             </div>
         </div>

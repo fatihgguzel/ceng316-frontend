@@ -55,6 +55,14 @@
     margin-top: 60px;
 }
 
+.gray-text{
+    color: gray;
+}
+
+.blue-text{
+    color: blue;
+}
+
 #email-username{
     width: 100px;
 }
