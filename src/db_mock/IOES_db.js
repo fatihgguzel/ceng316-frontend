@@ -8,3 +8,21 @@ export const userDictionary = {
     'enisozgun@std.iyte.edu.tr': {password: 'enisozgun123', role: 'student'},
     'enesdogan@std.iyte.edu.tr': {password: 'enesdogan123', role: 'student'}
 }
+
+export const roleActionArray={
+    array:[
+        {
+            text:'StudentActions',
+            subButtonArray:[
+                "Action 1","Action 2"
+            ]
+        },
+        {
+            text:'Help',
+            subButtonArray:[
+                "Get Help","Logout"
+            ]
+        }
+    ],
+    text:"Student's Page"
+}

@@ -8,6 +8,7 @@ export default function Navbar(){
                 <img className="navbar-logo" src={IZTECHLogo} alt="logo"/>
                 <span className="navbar-header">IOES</span>
             </div>
+            
         </div>
     )
 }
