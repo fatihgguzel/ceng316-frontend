@@ -1,5 +1,5 @@
+import './SideBar.css';
 import React, { useState } from 'react';
-
 import { NavLink } from 'react-router-dom';
 import dot from '../../assets/dot-icon.png'
 const Sidebar = ({roleActionArray,userRole}) => {
@@ -32,21 +32,21 @@ const Sidebar = ({roleActionArray,userRole}) => {
         }
     ]
     return (
-        <div className="container">
-           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
-               <div className="top_section">
-                   <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
+        <div className="sidebar-container" style={{height:'100%'}}>
+           <div className="sidebar">
+               <div className="sidebar-top-section">
+                   <div style={{marginLeft: "50px"}} className="sidebar-bars">
                       {roleActionArray[userRole].text}
                    </div>
                </div>
                {
                    roleActionArray[userRole].array.map((item, index)=>(
-                       <NavLink to={item.url} key={index} className="link" activeclassName="active">
-                        <div className="icon">
+                       <NavLink to={item.url} key={index} className="sidebar-link" activeclassName="active">
+                        <div className="sidebar-icon">
                             <img src={dot} style={{width:'20px', height:'20px'}}>
                             </img>
                         </div>
-                           <div style={{display: isOpen ? "block" : "none"}} className="link_text">{item.name}</div>
+                           <div className="sidebar-text">{item.name}</div>
 
                        </NavLink>
                    ))

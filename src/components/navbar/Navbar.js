@@ -3,7 +3,7 @@ import IZTECHLogo from '../../assets/iztech.png';
 import { useNavigate } from 'react-router-dom';
 import door from '../../assets/door.png';
 import avatar from '../../assets/avatar.png';
-import settings from '../../assets/setting-icon.jpeg';
+import settings from '../../assets/setting.png';
 import { UserContext } from "../../Providers/context"
 import { useContext } from 'react';
 

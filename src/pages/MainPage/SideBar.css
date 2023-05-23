@@ -1,0 +1,26 @@
+.sidebar-container{
+    height: 100%;
+}
+.sidebar{
+    width: 250px;
+    height: 100%;
+    background-color:#af0f0f;
+}
+
+.sidebar-bars{
+    margin-left: 50px;
+}
+
+.sidebar-icon{
+    width:20px;
+    height:20px;
+}
+
+.sidebar-text{
+    display: block;
+}
+
+.sidebar-dot{
+    width:20px; 
+    height:20px;
+}
