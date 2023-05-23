@@ -1,5 +1,6 @@
 .sidebar-container{
-    height: 100%;
+   
+    display: flex;
 }
 .sidebar{
     width: 250px;
@@ -29,5 +30,14 @@
     display: flex;
     flex-direction: row;
     background-color: aliceblue;
+    margin-bottom: 5px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+
+}
+.sidebar-bars{
+    font-size: large;
+    margin-top: 5px;
     margin-bottom: 5px;
 }

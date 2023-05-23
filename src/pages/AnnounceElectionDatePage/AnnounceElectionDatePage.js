@@ -43,7 +43,7 @@ export default function AnnounceElectionDate() {
   };
 
   return (
-  <div style={{display:'flex', flexDirection:'column'}}>
+  <div style={{display:'flex', flexDirection:'row', height:"100%"}}>
      <Sidebar roleActionArray={roleActionArray} userRole={"admin"}>
    </Sidebar>
     <div className="announce-date-container">
