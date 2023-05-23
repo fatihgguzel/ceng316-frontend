@@ -26,8 +26,8 @@ export const roleActionArray={
     "admin":{
         array:[
             {
-                name:"Action 1",
-                url:"/act-1",
+                name:"Anounce Election Date",
+                url:"/announce-election-date",
 
             },
             {
