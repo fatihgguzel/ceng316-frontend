@@ -16,18 +16,20 @@ export default function Navbar(){
             <div className="navbar-header-wrapper" onClick={()=>{navigation('/dashboard')}}>
                 <img className="navbar-logo" src={IZTECHLogo}  alt="logo"/>
                 <span className="navbar-header">IOES</span>
-            </div>
+            </div >
+
+            <div className='navbar-right'>
             {
                 user.role?<div className='avatar-header-wrapper'>
-                <div className='user'>
+                <div className='navbar-user'>
                     <img src={avatar} className='avatar-icon'>
                     </img>
                 </div>
-                <div className='settings'>
+                <div className='navbar-settings'>
                     <img src={settings} className='settings-icon'>
                     </img>
                 </div>
-                <div className='exit' onClick={()=>{
+                <div className='navbar-exit' onClick={()=>{
                     navigation('/')
                     user.setRole('');
                     }}>
@@ -36,6 +38,7 @@ export default function Navbar(){
                 </div>
             </div>:null
             }
+            </div>
             
         </div>
     )
