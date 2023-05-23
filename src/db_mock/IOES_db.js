@@ -13,12 +13,14 @@ export const roleActionArray={
     "student":{
         array:[
             {
-                subButtonArray:[
-                    "Action 1","Action 2"
-                ],
-                subButtonAddress:[
-                    "/url-1","/url-2"
-                ]
+                name:"Student Action 1",
+                url:"/act-1",
+
+            },
+            {
+                name:"Student Action 2",
+                url:"/act-2",
+                
             },
         ],
         text:"Student's Page"
@@ -31,7 +33,7 @@ export const roleActionArray={
 
             },
             {
-                name:"Action 2",
+                name:"Admin Action 2",
                 url:"/act-2",
                 
             },
