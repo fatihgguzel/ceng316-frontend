@@ -24,3 +24,21 @@
     font-weight: 700;
     margin-left: 10px;
 }
+
+.avatar-header-wrapper{
+    display: flex;
+    margin-left: 1100px;
+}
+
+.avatar-icon{
+    width: 50px;
+    height: 50px;
+}
+.settings-icon{
+    width: 50px;
+    height: 50px;
+}
+.door-icon{
+    width: 50px;
+    height: 50px;
+}

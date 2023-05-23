@@ -10,10 +10,18 @@ import Navbar from './components/navbar/Navbar';
 import MainPage from './pages/MainPage/MainPage';
 import AnnounceElectionDatePage from './pages/AnnounceElectionDatePage/AnnounceElectionDatePage';
 
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const navigation=useNavigate();
 
   const {user} = useContext(UserContext);
+
+  useEffect(()=>{
+    if(!user?.role){
+     // navigation('/');
+    }
+  },[])
 
   return (
     <div className="App">

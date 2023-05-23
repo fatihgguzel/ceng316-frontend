@@ -10,26 +10,32 @@ export const userDictionary = {
 }
 
 export const roleActionArray={
-    array:[
-        {
-            text:'StudentActions',
-            subButtonArray:[
-                "Action 1","Action 2"
-            ],
-            subButtonAddress:[
-                "/url-1","/url-2"
-            ]
-        },
-        {
-            text:'Help',
-            subButtonArray:[
-                "Get Help","Logout"
-            ],
-            subButtonAddress:[
-                "/help","/"
-            ]
-        }
-    ],
+    "student":{
+        array:[
+            {
+                subButtonArray:[
+                    "Action 1","Action 2"
+                ],
+                subButtonAddress:[
+                    "/url-1","/url-2"
+                ]
+            },
+        ],
+        text:"Student's Page"
+    },
+    "admin":{
+        array:[
+            {
+                name:"Action 1",
+                url:"/act-1",
 
-    text:"Student's Page"
+            },
+            {
+                name:"Action 2",
+                url:"/act-2",
+                
+            },
+        ],
+        text:"Admin's Page"
+    }
 }
