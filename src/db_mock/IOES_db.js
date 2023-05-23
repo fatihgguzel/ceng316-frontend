@@ -4,7 +4,7 @@ export const userDictionary = {
     'admin@iyte.edu.tr': {password: 'admin123', role: 'admin'},
     'yusufbaran@iyte.edu.tr': {password: 'rektorbaran123', role: 'admin'},
     'samettenekeci@iyte.edu.tr': {password: 'samettenekeci123', role: 'admin'},
-    'fatihguzel@std.iyte.edu.tr': {password: 'fatihguzel23', role: 'student'},
+    'fatihguzel@std.iyte.edu.tr': {password: 'fatihguzel123', role: 'student'},
     'enisozgun@std.iyte.edu.tr': {password: 'enisozgun123', role: 'student'},
     'enesdogan@std.iyte.edu.tr': {password: 'enesdogan123', role: 'student'}
 }

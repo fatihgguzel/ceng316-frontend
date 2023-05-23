@@ -22,18 +22,18 @@ export default function Navbar(){
             {
                 user.role?<div className='avatar-header-wrapper'>
                 <div className='navbar-user navbar-item' onClick={()=>{navigation('/profile')}}>
-                    <img src={avatar} className='avatar-icon'>
+                    <img src={avatar} alt="user-icon" className='avatar-icon'>
                     </img>
                 </div>
                 <div className='navbar-settings navbar-item' onClick={()=>{navigation('/help')}}>
-                    <img src={help} className='settings-icon'>
+                    <img src={help} alt="settings-help" className='settings-icon'>
                     </img>
                 </div>
                 <div className='navbar-exit navbar-item' onClick={()=>{
                     navigation('/')
                     user.setRole('');
                     }}>
-                    <img src={door} className='door-icon'>
+                    <img src={door} alt="exit-icon" className='door-icon'>
                     </img>
                 </div>
             </div>:null

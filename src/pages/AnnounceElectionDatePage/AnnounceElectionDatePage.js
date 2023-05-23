@@ -35,7 +35,7 @@ export default function AnnounceElectionDate() {
       if (diffDays > 30) {
         setErrorMessage('Date range is incorrect. 30 days is the maximum permitted period.');
       } else {
-        console.log('Announcing election dates:', startDateObj, endDateObj);
+        user.setElectionDates({startDate: startDateObj, endDate: endDateObj });
       }
     } else {
       setErrorMessage('Please select start and end dates');
