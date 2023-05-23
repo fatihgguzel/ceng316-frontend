@@ -3,6 +3,7 @@
     height: 80px;
     background-color: #a30000;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -18,9 +19,37 @@
     width: 60px;
 }
 
+.navbar-right {
+    display: flex;
+}
+
+.navbar-item{
+    margin-right: 20px;
+    cursor: pointer;
+}
+
 .navbar-header{
     color: white;
     font-size: 40px;
     font-weight: 700;
     margin-left: 10px;
+}
+
+.avatar-header-wrapper{
+    display: flex;
+}
+
+.avatar-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.settings-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.door-icon{
+    width: 30px;
+    height: 30px;
 }

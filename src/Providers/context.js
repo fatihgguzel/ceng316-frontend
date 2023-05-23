@@ -16,16 +16,19 @@ export const UserContextProvider = ({ children }) => {
   const [password, setPassword] = useState('');
   const [authToken, setAuthToken] = useState('');
   const [role, setRole] = useState('');
+  const [electionDates, setElectionDates] = useState({}); 
 
   const user = {
     email,
     password,
     authToken,
     role,
+    electionDates,
     setEmail,
     setPassword,
     setAuthToken,
-    setRole
+    setRole,
+    setElectionDates
   };
 
   return (
