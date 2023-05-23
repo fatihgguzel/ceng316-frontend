@@ -43,10 +43,10 @@ const Sidebar = ({roleActionArray,userRole}) => {
                    roleActionArray[userRole]?.array.map((item, index)=>(
                        <NavLink to={item.url} key={index} className="sidebar-link" activeclassName="active">
                         <div className="sidebar-icon">
-                            <img src={dot}  className='sidebar-dot'>
+                        <img src={dot}  className='sidebar-dot'>
                             </img>
                         </div>
-                           <div className="sidebar-text">{item.name}</div>
+                        <div className="sidebar-text">{item.name}</div>
 
                        </NavLink>
                    ))

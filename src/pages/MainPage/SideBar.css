@@ -24,3 +24,10 @@
     width:20px; 
     height:20px;
 }
+
+.sidebar-link{
+    display: flex;
+    flex-direction: row;
+    background-color: aliceblue;
+    margin-bottom: 5px;
+}
