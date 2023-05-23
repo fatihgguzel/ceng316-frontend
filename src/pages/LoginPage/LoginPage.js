@@ -19,12 +19,12 @@ export default function LoginPage(){
         e.preventDefault();
 
         if (username === '') {
-            setErrorMessage('E-posta boş bırakılamaz.');
+            setErrorMessage("E-mail can't be empty.");
             return;
         }
 
          if (password === '')  {
-            setErrorMessage('Şifre boş bırakılamaz.');
+            setErrorMessage("Password can't be empty");
             return;
         }
 
@@ -42,10 +42,10 @@ export default function LoginPage(){
 
                 navigate('/dashboard');
             } else {
-                setErrorMessage('E-posta veya şifre hatalı.')
+                setErrorMessage('Incorrect credentials.')
             }
         } else {
-            setErrorMessage('E-posta veya şifre hatalı.')
+            setErrorMessage('Incorrect credentials.')
         }
     }
 
@@ -56,20 +56,20 @@ export default function LoginPage(){
                 <div className='login-content'>
                     <img className="login-logo" src={IZTECHLogo} alt='Logo'></img>
                     <br />
-                    <header className="login-content-header">İYTE Online Seçim Sistemi</header>
+                    <header className="login-content-header">IZTECH Online Election System</header>
                     {errorMessage && <span className='error-message' id='login-error-message'>{errorMessage}</span>}
                     <form onSubmit={handleSubmit} className="login-credentials-wrapper">
                         <div>
-                            <input value={username} onChange={(e) => setUsername(e.target.value)} className="login-credentials login-email" id='email-username' type="text" placeholder='E-Posta' />
+                            <input value={username} onChange={(e) => setUsername(e.target.value)} className="login-credentials login-email" id='email-username' type="text" placeholder='E-Mail' />
                             <select value={domain} onChange={(e) => setDomain(e.target.value)} className='login-credentials email-domain' id='email-domain'>
 		                        <option value="@std.iyte.edu.tr">@std.iyte.edu.tr</option>
                                 <option value="@iyte.edu.tr">@iyte.edu.tr</option>
 	                        </select>
                         </div>
-                        <input value={password} onChange={(e) => setPassword(e.target.value)} className="login-credentials login-password" id='password' type="password" placeholder="Şifre" />
-                        <button className='btn' id='login-btn' type="submit">Oturum Aç</button>
+                        <input value={password} onChange={(e) => setPassword(e.target.value)} className="login-credentials login-password" id='password' type="password" placeholder="Password" />
+                        <button className='btn' id='login-btn' type="submit">Log In</button>
                     </form>
-                    <a className={'login-forgot-password'} href='https://mail-app.iyte.edu.tr/ForgotMyPassword' target='_blank' rel='noopener noreferrer'>Şifremi Unuttum</a>
+                    <a className={'login-forgot-password'} href='https://mail-app.iyte.edu.tr/ForgotMyPassword' target='_blank' rel='noopener noreferrer'>Forgot Password</a>
                 </div>
             </div>
         </div>

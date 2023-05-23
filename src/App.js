@@ -9,6 +9,8 @@ import { UserContextProvider } from './Providers/context';
 import Navbar from './components/navbar/Navbar';
 import MainPage from './pages/MainPage/MainPage';
 import AnnounceElectionDatePage from './pages/AnnounceElectionDatePage/AnnounceElectionDatePage';
+import Profile from './pages/Profile/Profile';
+import Help from './pages/Help/Help';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -33,7 +35,8 @@ function App() {
             <Route exact path="/" element={<LoginPage />} />
             <Route path="/dashboard" element={<MainPage />} />
             <Route path="/announce-election-date" element={<AnnounceElectionDatePage />} />
-
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/help" element={<Help />} />
           </Routes>
         </div>
       </UserContextProvider>

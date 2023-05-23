@@ -3,7 +3,7 @@ import IZTECHLogo from '../../assets/iztech.png';
 import { useNavigate } from 'react-router-dom';
 import door from '../../assets/door.png';
 import avatar from '../../assets/avatar.png';
-import settings from '../../assets/setting.png';
+import help from '../../assets/help.png';
 import { UserContext } from "../../Providers/context"
 import { useContext } from 'react';
 
@@ -21,15 +21,15 @@ export default function Navbar(){
             <div className='navbar-right'>
             {
                 user.role?<div className='avatar-header-wrapper'>
-                <div className='navbar-user'>
+                <div className='navbar-user navbar-item' onClick={()=>{navigation('/profile')}}>
                     <img src={avatar} className='avatar-icon'>
                     </img>
                 </div>
-                <div className='navbar-settings'>
-                    <img src={settings} className='settings-icon'>
+                <div className='navbar-settings navbar-item' onClick={()=>{navigation('/help')}}>
+                    <img src={help} className='settings-icon'>
                     </img>
                 </div>
-                <div className='navbar-exit' onClick={()=>{
+                <div className='navbar-exit navbar-item' onClick={()=>{
                     navigation('/')
                     user.setRole('');
                     }}>

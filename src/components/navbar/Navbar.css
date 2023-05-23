@@ -3,6 +3,7 @@
     height: 80px;
     background-color: #a30000;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -18,6 +19,18 @@
     width: 60px;
 }
 
+.navbar-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+.navbar-item{
+    margin-right: 30px;
+    cursor: pointer;
+}
+
 .navbar-header{
     color: white;
     font-size: 40px;
@@ -27,10 +40,6 @@
 
 .avatar-header-wrapper{
     display: flex;
-    margin-left: 1100px;
-    background-color: aliceblue;
-    border-radius: 30px;
-    
 }
 
 .avatar-icon{

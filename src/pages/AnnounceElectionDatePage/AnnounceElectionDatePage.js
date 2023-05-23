@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './AnnounceElectionDatePage.css';
-import Sidebar from '../MainPage/SideBar';
+import Sidebar from '../../components/sidebar/SideBar';
 import { UserContext } from '../../Providers/context';
 import { roleActionArray } from '../../db_mock/IOES_db';
 import { useNavigate } from 'react-router-dom';
