@@ -10,6 +10,7 @@ import Navbar from './components/navbar/Navbar';
 import MainPage from './pages/MainPage/MainPage';
 import AnnounceElectionDatePage from './pages/AnnounceElectionDatePage/AnnounceElectionDatePage';
 
+
 function App() {
 
   const {user} = useContext(UserContext);

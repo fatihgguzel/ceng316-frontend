@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-const OuterButton=({text,subButtonArray,index})=>{
+import { useNavigate } from 'react-router-dom';
+
+const OuterButton=({text,subButtonArray,subButtonAddress})=>{
+    const navigation=useNavigate();
+
     const [isHovered,setIsHovered]=useState(false);
     const handleHover=()=>{
         setIsHovered(!isHovered);
@@ -13,7 +17,7 @@ const OuterButton=({text,subButtonArray,index})=>{
       </button>
       {isHovered&& (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {subButtonArray.map((element)=> <button className="sub-button" >{element}</button>)}
+            {subButtonArray.map((element,index)=> <button className="sub-button" onClick={()=>{navigation(subButtonAddress[index])}} >{element}</button>)}
         </div>
       )}
     </div>
@@ -34,7 +38,8 @@ const Navbar = ({buttonArray}) => {
             buttonArray.array.map((button,index)=>
             <OuterButton text={button.text} 
             subButtonArray={button.subButtonArray} 
-            index={index}/>
+            subButtonAddress={button.subButtonAddress}
+            />
 
             )
         }

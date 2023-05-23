@@ -15,14 +15,21 @@ export const roleActionArray={
             text:'StudentActions',
             subButtonArray:[
                 "Action 1","Action 2"
+            ],
+            subButtonAddress:[
+                "/url-1","/url-2"
             ]
         },
         {
             text:'Help',
             subButtonArray:[
                 "Get Help","Logout"
+            ],
+            subButtonAddress:[
+                "/help","/"
             ]
         }
     ],
+
     text:"Student's Page"
 }
