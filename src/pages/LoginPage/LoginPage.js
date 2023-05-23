@@ -68,11 +68,10 @@ export default function LoginPage(){
                         <input value={password} onChange={(e) => setPassword(e.target.value)} className="login-credentials login-password" id='password' type="password" placeholder="Şifre" />
                         <button className='btn' id='login-btn' type="submit">Oturum Aç</button>
                     </form>
-                    <a className='login-forgot-password' href='https://mail-app.iyte.edu.tr/ForgotMyPassword' target='_blank' rel='noopener noreferrer'>Şifremi Unuttum</a>
+                    <a className={'login-forgot-password'} href='https://mail-app.iyte.edu.tr/ForgotMyPassword' target='_blank' rel='noopener noreferrer'>Şifremi Unuttum</a>
                 </div>
             </div>
         </div>
-
     )
 }
 
