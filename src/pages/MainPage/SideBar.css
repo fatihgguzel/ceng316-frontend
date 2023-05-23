@@ -1,0 +1,43 @@
+.sidebar-container{
+   
+    display: flex;
+}
+.sidebar{
+    width: 250px;
+    height: 100%;
+    background-color:#af0f0f;
+}
+
+.sidebar-bars{
+    margin-left: 50px;
+}
+
+.sidebar-icon{
+    width:20px;
+    height:20px;
+}
+
+.sidebar-text{
+    display: block;
+}
+
+.sidebar-dot{
+    width:20px; 
+    height:20px;
+}
+
+.sidebar-link{
+    display: flex;
+    flex-direction: row;
+    background-color: aliceblue;
+    margin-bottom: 5px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+
+}
+.sidebar-bars{
+    font-size: large;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

@@ -8,3 +8,36 @@ export const userDictionary = {
     'enisozgun@std.iyte.edu.tr': {password: 'enisozgun123', role: 'student'},
     'enesdogan@std.iyte.edu.tr': {password: 'enesdogan123', role: 'student'}
 }
+
+export const roleActionArray={
+    "student":{
+        array:[
+            {
+                name:"Student Action 1",
+                url:"/act-1",
+
+            },
+            {
+                name:"Student Action 2",
+                url:"/act-2",
+                
+            },
+        ],
+        text:"Student's Page"
+    },
+    "admin":{
+        array:[
+            {
+                name:"Anounce Election Date",
+                url:"/announce-election-date",
+
+            },
+            {
+                name:"Admin Action 2",
+                url:"/act-2",
+                
+            },
+        ],
+        text:"Admin's Page"
+    }
+}
