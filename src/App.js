@@ -19,7 +19,7 @@ function App() {
 
   useEffect(()=>{
     if(!user?.role){
-     // navigation('/');
+      navigation('/');
     }
   },[])
 

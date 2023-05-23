@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './AnnounceElectionDatePage.css';
 import Sidebar from '../MainPage/SideBar';
+import { UserContext } from '../../Providers/context';
 import { roleActionArray } from '../../db_mock/IOES_db';
+import { useNavigate } from 'react-router-dom';
 export default function AnnounceElectionDate() {
+  const {user} = useContext(UserContext);
+  const navigation=useNavigate();
+
+  useEffect(()=>{
+    if(!user?.role==="admin"){
+     navigation('/');
+    }
+  },[])
+
   const today = new Date();
 
   const [startDate, setStartDate] = useState(null);
@@ -32,7 +43,7 @@ export default function AnnounceElectionDate() {
   };
 
   return (
-  <div>
+  <div style={{display:'flex', flexDirection:'column'}}>
      <Sidebar roleActionArray={roleActionArray} userRole={"admin"}>
    </Sidebar>
     <div className="announce-date-container">
