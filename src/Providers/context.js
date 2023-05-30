@@ -12,21 +12,27 @@ export const UserContext = createContext({
 });
 
 export const UserContextProvider = ({ children }) => {
+  const [userID, setUserID] = useState(null);
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [authToken, setAuthToken] = useState('');
+  const [departmentID, setDepartmentID] = useState(null);
   const [role, setRole] = useState('');
   const [electionDates, setElectionDates] = useState({}); 
 
   const user = {
+    userID,
+    userName,
     email,
-    password,
     authToken,
+    departmentID,
     role,
     electionDates,
+    setUserID,
+    setUserName,
     setEmail,
-    setPassword,
     setAuthToken,
+    setDepartmentID,
     setRole,
     setElectionDates
   };

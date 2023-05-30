@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import IZTECHLogo from '../../assets/iztech.png';
 import { userDictionary } from '../../db_mock/IOES_db';
 import { UserContext } from '../../Providers/context';
+import { useJwt } from "react-jwt";
 import './LoginPage.css';
 
 export default function LoginPage(){
