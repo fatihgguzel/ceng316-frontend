@@ -19,11 +19,11 @@ export default function MainPage(){
             <div className="election-content-wrapper">
                 <div className="election-content">
                     <div className="election-start-date-wrapper">
-                        <span>Start Date of the Current Election : {formatDate(user.electionDates.startDate)}</span>
+                        <span>Start Date of the Current Election :</span>
                     </div>
 
                     <div className="election-end-date-wrapper">
-                        <span>End Date of the Current Election : {formatDate(user.electionDates.endDate)}</span>
+                        <span>End Date of the Current Election :</span>
                     </div>
                 </div>
 

@@ -6,6 +6,8 @@ import Sidebar from '../../components/sidebar/SideBar';
 import { UserContext } from '../../Providers/context';
 import { roleActionArray } from '../../db_mock/IOES_db';
 import { useNavigate } from 'react-router-dom';
+import api from '../../Providers/api';
+
 export default function AnnounceElectionDate() {
   const {user} = useContext(UserContext);
   const navigation=useNavigate();
@@ -22,7 +24,7 @@ export default function AnnounceElectionDate() {
   const [endDate, setEndDate] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleAnnounceDate = () => {
+  const handleAnnounceDate = async () => {
     if (startDate >= endDate) {
       setErrorMessage("The start day of the election cannot be the same day as the end date or later.");
     } else if (startDate && endDate) {
@@ -34,12 +36,34 @@ export default function AnnounceElectionDate() {
 
       if (diffDays > 30) {
         setErrorMessage('Date range is incorrect. 30 days is the maximum permitted period.');
-      } else {
-        user.setElectionDates({startDate: startDateObj, endDate: endDateObj });
+      } 
+      else {
+        try{
+          const response = await api.post('/election/announce-election-date',
+          {
+            "startDate": formatDate(startDateObj),
+            "endDate": formatDate(endDateObj),
+            "departmentId": user.departmentID
+          }
+          )
+          if(response.status === 200){
+            alert(response.data.message);
+          }
+        }
+        catch(error){
+          console.log(error)
+        }
       }
     } else {
       setErrorMessage('Please select start and end dates');
     }
+  };
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   return (

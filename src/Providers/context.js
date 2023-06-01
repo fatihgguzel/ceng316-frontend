@@ -8,7 +8,9 @@ export const UserContext = createContext({
   setEmail: () => {},
   setPassword: () => {},
   setAuthToken: () => {},
-  setRole: () => {}
+  setRole: () => {},
+  logout: () => {},
+  setUser: (UserInfo, response) => {},
 });
 
 export const UserContextProvider = ({ children }) => {
@@ -18,7 +20,24 @@ export const UserContextProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState('');
   const [departmentID, setDepartmentID] = useState(null);
   const [role, setRole] = useState('');
-  const [electionDates, setElectionDates] = useState({}); 
+
+  const logout = () => {
+    setUserID(null);
+    setUserName('');
+    setEmail('');
+    setAuthToken('');
+    setDepartmentID(null);
+    setRole('');
+  }
+
+  const setUser = (UserInfo, response) => {
+    user.setUserID(UserInfo.id);
+    user.setUserName(UserInfo.name);
+    user.setEmail(UserInfo.email);
+    user.setAuthToken('Bearer ' + response.data.accessToken);
+    user.setDepartmentID(UserInfo.department_id);
+    user.setRole(UserInfo.role);
+  }
 
   const user = {
     userID,
@@ -27,14 +46,14 @@ export const UserContextProvider = ({ children }) => {
     authToken,
     departmentID,
     role,
-    electionDates,
     setUserID,
     setUserName,
     setEmail,
     setAuthToken,
     setDepartmentID,
     setRole,
-    setElectionDates
+    logout,
+    setUser,
   };
 
   return (
