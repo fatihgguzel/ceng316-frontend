@@ -1,10 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, Link } from 'react';
+import React, { useState, useContext, Link, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IZTECHLogo from '../../assets/iztech.png';
-import { userDictionary } from '../../db_mock/IOES_db';
 import { UserContext } from '../../Providers/context';
+import jwt_decode from 'jwt-decode';
 import './LoginPage.css';
+import api from '../../Providers/api';
 
 export default function LoginPage(){
     const [username, setUsername] = useState('');
@@ -15,7 +15,7 @@ export default function LoginPage(){
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) =>  {
         e.preventDefault();
 
         if (username === '') {
@@ -29,23 +29,22 @@ export default function LoginPage(){
         }
 
         const email = username + domain;
-        const isValidEmail = email in userDictionary;
-
-        if (isValidEmail) {
-            const isValidPassword = userDictionary[email].password === password;
-
-            if (isValidPassword) {
-                user.setEmail(email);
-                user.setPassword(password);
-                user.setAuthToken(Math.random());
-                user.setRole(userDictionary[email].role);
-
-                navigate('/dashboard');
-            } else {
-                setErrorMessage('Incorrect credentials.')
+        try {
+            const response = await api.post('/auth/login',
+            {
+                "email": email,
+                "password":password
             }
-        } else {
-            setErrorMessage('Incorrect credentials.')
+            )
+
+            if (response.status === 200) {
+                const { UserInfo } = jwt_decode(response.data.accessToken)
+                user.setUser(UserInfo, response);
+                navigate('/dashboard');
+            }
+        }
+        catch(error){
+            setErrorMessage("Incorrect Credentials")
         }
     }
 

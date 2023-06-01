@@ -73,6 +73,7 @@
 
 #login-btn{
     margin-top: 15px;
+    cursor: pointer;
 }
 
 #login-error-message{

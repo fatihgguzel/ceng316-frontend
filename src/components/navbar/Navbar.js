@@ -13,7 +13,11 @@ export default function Navbar(){
 
     return(
         <div className="navbar">
-            <div className="navbar-header-wrapper" onClick={()=>{navigation('/dashboard')}}>
+            <div className="navbar-header-wrapper" onClick={()=>{
+                if(user.authToken){
+                    navigation('/dashboard');
+                }
+                }}>
                 <img className="navbar-logo" src={IZTECHLogo}  alt="logo"/>
                 <span className="navbar-header">IOES</span>
             </div >
@@ -31,7 +35,7 @@ export default function Navbar(){
                 </div>
                 <div className='navbar-exit navbar-item' onClick={()=>{
                     navigation('/')
-                    user.setRole('');
+                    user.logout()
                     }}>
                     <img src={door} alt="exit-icon" className='door-icon'>
                     </img>
