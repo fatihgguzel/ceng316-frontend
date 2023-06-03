@@ -74,6 +74,9 @@
 #login-btn{
     margin-top: 15px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #login-error-message{

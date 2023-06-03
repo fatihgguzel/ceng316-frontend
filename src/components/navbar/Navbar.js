@@ -24,7 +24,7 @@ export default function Navbar(){
 
             <div className='navbar-right'>
             {
-                user.role?<div className='avatar-header-wrapper'>
+                user.authToken?<div className='avatar-header-wrapper'>
                 <div className='navbar-user navbar-item' onClick={()=>{navigation('/profile')}}>
                     <img src={avatar} alt="user-icon" className='avatar-icon'>
                     </img>

@@ -1,0 +1,74 @@
+.candidate-application-page{
+    display: flex;
+    height: 100%;
+}
+
+.candidate-application-page-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.data-table{
+    width: 100%;
+}
+
+.candidate-apply-btn{
+    margin-top: 50px;
+    border-radius: 3px;
+    background-color: #a30000;
+    border: none;
+    color: white;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    font-family: 'Roboto';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.candidate-apply-btn:hover{
+    background-color: #c70303;
+}
+
+.candidate-apply-btn:disabled {
+    cursor: not-allowed;
+  }
+  
+.candidate-apply-btn:disabled:hover {
+    background-color: #a30000;
+}
+
+.candidate-edit-btn{
+    margin-left: 10px;
+    margin-top: 50px;
+    border-radius: 3px;
+    background-color: #a29b9b;
+    border: none;
+    color: white;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    font-family: 'Roboto';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.candidate-edit-btn:hover{
+    background-color: #bfb9b9;
+}
+
+.candidate-edit-btn:disabled {
+    cursor: not-allowed;
+  }
+  
+.candidate-edit-btn:disabled:hover {
+    background-color: #a29b9b;
+}
+
+.page-actions{
+    display: flex;
+    flex-direction: row;
+}

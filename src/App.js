@@ -14,6 +14,7 @@ import Help from './pages/Help/Help';
 
 import { useNavigate } from 'react-router-dom';
 import PrivateRoutes from './utils/PrivateRoutes';
+import CandidateApplicationPage from './pages/CandidateApplicationPage/CandidateApplicationPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/dashboard" element={<MainPage />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/help" element={<Help />} />
+              <Route path="/candidate-application" element={<CandidateApplicationPage/>} />
             </Route>
           </Routes>
         </div>

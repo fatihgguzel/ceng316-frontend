@@ -3,8 +3,8 @@ export const roleActionArray={
     "student":{
         array:[
             {
-                name:"Student Action 1",
-                url:"/act-1",
+                name:"Candidate Application",
+                url:"/candidate-application",
 
             },
             {
