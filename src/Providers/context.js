@@ -1,13 +1,17 @@
 import React, { createContext, useState } from 'react';
 
 export const UserContext = createContext({
+  userID: null,
+  userName: '',
   email: '',
-  password: '',
   authToken: '',
+  departmentID: null,
   role: '',
+  setUserID: () => {},
+  setUserName: () => {},
   setEmail: () => {},
-  setPassword: () => {},
   setAuthToken: () => {},
+  setDepartmentID: () => {},
   setRole: () => {},
   logout: () => {},
   setUser: (UserInfo, response) => {},
