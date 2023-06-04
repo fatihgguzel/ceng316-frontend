@@ -2,6 +2,7 @@ import React, { useState, useContext, Link, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IZTECHLogo from '../../assets/iztech.png';
 import { UserContext } from '../../Providers/context';
+import { SpinnerCircularFixed } from 'spinners-react';
 import jwt_decode from 'jwt-decode';
 import './LoginPage.css';
 import api from '../../Providers/api';
@@ -10,6 +11,7 @@ export default function LoginPage(){
     const [username, setUsername] = useState('');
     const [domain, setDomain] = useState('@std.iyte.edu.tr');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate();
@@ -30,13 +32,14 @@ export default function LoginPage(){
 
         const email = username + domain;
         try {
+            setIsLoading(true);
             const response = await api.post('/auth/login',
             {
                 "email": email,
                 "password":password
             }
             )
-            console.log(response);
+
             if (response.status === 200) {
                 const { UserInfo } = jwt_decode(response.data.accessToken)
                 user.setUser(UserInfo, response);
@@ -45,6 +48,9 @@ export default function LoginPage(){
         }
         catch(error){
             setErrorMessage("Incorrect Credentials")
+        }
+        finally{
+            setIsLoading(false);
         }
     }
 
@@ -66,7 +72,7 @@ export default function LoginPage(){
 	                        </select>
                         </div>
                         <input value={password} onChange={(e) => setPassword(e.target.value)} className="login-credentials login-password" id='password' type="password" placeholder="Password" />
-                        <button className='btn' id='login-btn' type="submit">Log In</button>
+                        <button className='btn' id='login-btn' type="submit">{isLoading ? (<SpinnerCircularFixed size={15} thickness={150} speed={100} color="rgba(255, 255, 255, 1)" secondaryColor="rgba(0, 0, 0, 0)" />) : 'Log in'}</button>
                     </form>
                     <a className={'login-forgot-password'} href='https://mail-app.iyte.edu.tr/ForgotMyPassword' target='_blank' rel='noopener noreferrer'>Forgot Password</a>
                 </div>

@@ -8,6 +8,7 @@ import { roleActionArray } from '../../db_mock/IOES_db';
 import { useNavigate } from 'react-router-dom';
 import api from '../../Providers/api';
 
+
 export default function AnnounceElectionDatePage() {
   const { user } = useContext(UserContext);
   const navigation = useNavigate();
@@ -17,12 +18,34 @@ export default function AnnounceElectionDatePage() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [election, setElection] = useState(null);
 
   useEffect(() => {
     if (!user?.role === 'admin') {
       navigation('/');
+    } else {
+      fetchElectionByDepartmentId();
     }
   }, []);
+
+  const fetchElectionByDepartmentId = async () => {
+
+    console.log(user.departmentID);
+    try {
+      const response = await api.get(`/election/department/${user.departmentID}`);
+      console.log(response.status);
+      if (response.status === 200) {
+        setElection(response.data);
+
+      } 
+    } catch (error) {
+      if (error.response.status === 404) {
+        setElection(null);
+      } else if (error.response.status === 500) {
+        setErrorMessage('Server error.');
+      }
+    }
+  };
 
   const handleAnnounceDate = async () => {
     if (startDate && endDate) {
@@ -38,21 +61,19 @@ export default function AnnounceElectionDatePage() {
             endDate: formatDate(endDateObj),
             departmentId: user.departmentID,
           });
-
-          if (response.status === 201) {
+          console.log(response);
+          if (response.status === 200) {
             setErrorMessage('');
             setStartDate(null);
             setEndDate(null);
-            alert('Election created.');
-            navigation('/');
-          } else if (response.status === 400) {
+            navigation('/dashboard');
+          } 
+        } catch (error) {
+          if (error.response.status === 400) {
             setErrorMessage('Bad request.');
-          } else if (response.status === 500) {
+          } else if (error.response.status === 500) {
             setErrorMessage('Server error.');
           }
-        } catch (error) {
-          setErrorMessage('An error occurred while creating the election.');
-          console.log(error);
         }
       }
     } else {
@@ -66,6 +87,19 @@ export default function AnnounceElectionDatePage() {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
+
+  if (election && election.start_time && election.end_time) {
+
+    return (
+      <div className="announce-page-container">
+        <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+        <div className="announce-date-container">
+          <h2 id="announce-h2">Announce Election Date</h2>
+          <p>Election has already started in this department. If you want to change the election start and end dates, go to the rearrange page.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="announce-page-container">
