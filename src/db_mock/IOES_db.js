@@ -7,11 +7,6 @@ export const roleActionArray={
                 url:"/candidate-application",
 
             },
-            {
-                name:"Student Action 2",
-                url:"/act-2",
-                
-            },
         ],
         text:"Student's Page"
     },
@@ -23,8 +18,8 @@ export const roleActionArray={
 
             },
             {
-                name:"Admin Action 2",
-                url:"/act-2",
+                name:"Review Candidate Applications",
+                url:"/candidate-applications",
                 
             },
         ],

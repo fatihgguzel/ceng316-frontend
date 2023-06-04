@@ -9,6 +9,7 @@ import { UserContextProvider } from './Providers/context';
 import Navbar from './components/navbar/Navbar';
 import MainPage from './pages/MainPage/MainPage';
 import AnnounceElectionDatePage from './pages/AnnounceElectionDatePage/AnnounceElectionDatePage';
+import ReviewCandidatesPage from './pages/ReviewCandidatesPage/ReviewCandidatesPage';
 import Profile from './pages/Profile/Profile';
 import Help from './pages/Help/Help';
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
             <Route element={<PrivateRoutes roleRestrictions={['admin']}/>}>
               <Route path="/announce-election-date" element={<AnnounceElectionDatePage />} />
+              <Route path="/candidate-applications" element={<ReviewCandidatesPage/>}/>
             </Route>
             <Route element={<PrivateRoutes roleRestrictions={['admin', 'student']}/>}>
               <Route path="/dashboard" element={<MainPage />} />

@@ -5,7 +5,8 @@ import Sidebar from "../../components/sidebar/SideBar";
 import { roleActionArray } from "../../db_mock/IOES_db";
 import DataTable from 'react-data-table-component';
 import api from '../../Providers/api';
-import CandidateApplicationModal from '../../components/modal/CandidateApplicationModal';
+import { formatDate } from '../../utils/FormatDate';
+import CandidateApplicationModal from '../../components/ApplicationModal/CandidateApplicationModal';
 
 
 export default function CandidateApplicationPage(){
@@ -30,7 +31,6 @@ export default function CandidateApplicationPage(){
                 const response = await api.get('/candidate/candidate-information/' + user.userID)
                 if(response.status === 200){
                     setInitialUser(response.data)
-                    setEditDisabled(false);
                 }
             }
             catch(error){
@@ -46,7 +46,7 @@ export default function CandidateApplicationPage(){
             }
         }
         getCandidateInfoInitial();
-    },[])
+    })
 
 
 
@@ -58,24 +58,16 @@ export default function CandidateApplicationPage(){
     };
 
     const setInitialUser= (data) => {
+        if(data.application_status !== "approved"){
+            setEditDisabled(false);
+        }
         setApplicationDate(formatDate(data.application_date));
         setCandidateName(data.candidate_name);
         setCandidateDepartment(data.department_name);
+        setReviewerComment(data.comment);
         setCandidateApplicationStatus(data.application_status);
 
     }
-
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-      
-        const formattedDay = String(day).padStart(2, '0');
-        const formattedMonth = String(month).padStart(2, '0');
-      
-        return `${formattedDay}/${formattedMonth}/${year}`;
-    };
 
     const closeModal = () => {
         setIsModalOpen(false);
