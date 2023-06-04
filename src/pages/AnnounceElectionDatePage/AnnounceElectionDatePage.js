@@ -8,15 +8,9 @@ import { roleActionArray } from '../../db_mock/IOES_db';
 import { useNavigate } from 'react-router-dom';
 import api from '../../Providers/api';
 
-export default function AnnounceElectionDate() {
-  const {user} = useContext(UserContext);
-  const navigation=useNavigate();
-
-  useEffect(()=>{
-    if(!user?.role==="admin"){
-     navigation('/');
-    }
-  },[])
+export default function AnnounceElectionDatePage() {
+  const { user } = useContext(UserContext);
+  const navigation = useNavigate();
 
   const today = new Date();
 
@@ -24,34 +18,41 @@ export default function AnnounceElectionDate() {
   const [endDate, setEndDate] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
+  useEffect(() => {
+    if (!user?.role === 'admin') {
+      navigation('/');
+    }
+  }, []);
+
   const handleAnnounceDate = async () => {
-    if (startDate >= endDate) {
-      setErrorMessage("The start day of the election cannot be the same day as the end date or later.");
-    } else if (startDate && endDate) {
+    if (startDate && endDate) {
       const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
 
-      const timeDiff = Math.abs(endDateObj.getTime() - startDateObj.getTime());
-      const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      if (startDateObj >= endDateObj) {
+        setErrorMessage('The start day of the election cannot be the same day as the end date or later.');
+      } else {
+        try {
+          const response = await api.post('/election/announce-election-date', {
+            startDate: formatDate(startDateObj),
+            endDate: formatDate(endDateObj),
+            departmentId: user.departmentID,
+          });
 
-      if (diffDays > 30) {
-        setErrorMessage('Date range is incorrect. 30 days is the maximum permitted period.');
-      } 
-      else {
-        try{
-          const response = await api.post('/election/announce-election-date',
-          {
-            "startDate": formatDate(startDateObj),
-            "endDate": formatDate(endDateObj),
-            "departmentId": user.departmentID
+          if (response.status === 201) {
+            setErrorMessage('');
+            setStartDate(null);
+            setEndDate(null);
+            alert('Election created.');
+            navigation('/');
+          } else if (response.status === 400) {
+            setErrorMessage('Bad request.');
+          } else if (response.status === 500) {
+            setErrorMessage('Server error.');
           }
-          )
-          if(response.status === 200){
-            alert(response.data.message);
-          }
-        }
-        catch(error){
-          console.log(error)
+        } catch (error) {
+          setErrorMessage('An error occurred while creating the election.');
+          console.log(error);
         }
       }
     } else {
@@ -67,48 +68,51 @@ export default function AnnounceElectionDate() {
   };
 
   return (
-  <div style={{display:'flex', flexDirection:'row', height:"100%"}}>
-     <Sidebar roleActionArray={roleActionArray} userRole={"admin"}>
-   </Sidebar>
-    <div className="announce-date-container">
-    <h2 id='announce-h2'>Announce Election Date</h2>
-    <div className="calendars-container">
-      <div className="date-picker-container">
-        <p id='announce-p'>Start Date</p>
-        <DatePicker
-          className="react-datepicker"
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          minDate={today}
-          dateFormat="dd/MM/yyyy"
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={15}
-          todayButton="Today"
-          placeholderText="Select start date"
-        />
-      </div>
-      <div className="date-picker-container">
-        <p id='announce-p'>End Date</p>
-        <DatePicker
-          className="react-datepicker"
-          selected={endDate}
-          onChange={(date) => setEndDate(date)}
-          minDate={today}
-          dateFormat="dd/MM/yyyy"
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={15}
-          todayButton="Today"
-          placeholderText="Select end date"
-        />
+    <div className="announce-page-container">
+      <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+      <div className="announce-date-container">
+        <h2 id="announce-h2">Announce Election Date</h2>
+        <div className="calendars-container">
+          <div className="date-picker-container">
+            <p id="announce-p">Start Date</p>
+            <DatePicker
+              className="react-datepicker"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              minDate={today}
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={15}
+              todayButton="Today"
+              placeholderText="Select start date"
+            />
+          </div>
+          <div className="date-picker-container">
+            <p id="announce-p">End Date</p>
+            <DatePicker
+              className="react-datepicker"
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              minDate={today}
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={15}
+              todayButton="Today"
+              placeholderText="Select end date"
+            />
+          </div>
+        </div>
+        <button
+          id="se-button"
+          onClick={handleAnnounceDate}
+          disabled={!startDate || !endDate}
+        >
+          Start Election
+        </button>
+        {errorMessage && <p className="error-message-announce-page">{errorMessage}</p>}
       </div>
     </div>
-    <button id='se-button' onClick={handleAnnounceDate} disabled={!startDate || !endDate}>
-      Start Election
-    </button>
-    {errorMessage  && <p className="error-message-announce-page">{errorMessage}</p>}
-  </div>
-  </div>
   );
 }

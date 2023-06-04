@@ -84,7 +84,8 @@
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
+  margin-bottom: 30px; 
 }
 
 #se-button:hover {
@@ -98,3 +99,8 @@
   font-weight: bold;
   text-align: center; 
 }
+
+
+
+
+

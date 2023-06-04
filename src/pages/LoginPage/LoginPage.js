@@ -36,7 +36,7 @@ export default function LoginPage(){
                 "password":password
             }
             )
-
+            console.log(response);
             if (response.status === 200) {
                 const { UserInfo } = jwt_decode(response.data.accessToken)
                 user.setUser(UserInfo, response);
