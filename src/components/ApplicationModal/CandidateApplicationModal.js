@@ -5,6 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import api from '../../Providers/api';
 import { UserContext } from '../../Providers/context';
 import { SpinnerCircularFixed } from 'spinners-react';
+import { formatDate } from '../../utils/FormatDate';
 
 
 
@@ -27,17 +28,7 @@ export default function CandidateApplicationModal(props){
         props.setPoliticalDoc(file);
     };
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-      
-        const formattedDay = String(day).padStart(2, '0');
-        const formattedMonth = String(month).padStart(2, '0');
-      
-        return `${formattedDay}/${formattedMonth}/${year}`;
-    };
+    
 
     const submitApplyHandler = async (isEdit) => {
         if(props.studentLetter && props.studentCertificate && props.politicalDoc){
@@ -97,21 +88,21 @@ export default function CandidateApplicationModal(props){
                     <button className='modal-close-button' onClick={props.onClose}>&times;</button>
                 </div>
                 <div className='modal-upload'>
-                    <input className='modal-upload-btn' onChange={handleStudentLetter} type='file' id="letter-of-candidature"></input>
+                    <input className='modal-upload-btn' onChange={handleStudentLetter} accept="application/pdf" type='file' id="letter-of-candidature"></input>
                     <label className='modal-upload-label' htmlFor='letter-of-candidature'>
                         <i><FontAwesomeIcon icon={faPlus} /></i>Letter of Candidature</label>
                     <span className='modal-upload-filename'>: {props.studentLetter ? props.studentLetter.name : 'No file chosen'}</span>
                 </div>
 
                 <div className='modal-upload'>
-                    <input className='modal-upload-btn' onChange={handleStudentCertificate} type='file' id="student-certificate"></input>
+                    <input className='modal-upload-btn' onChange={handleStudentCertificate} type='file' accept="application/pdf" id="student-certificate"></input>
                     <label className='modal-upload-label' htmlFor='student-certificate'>
                         <i><FontAwesomeIcon icon={faPlus} /></i>Student Certificate </label>
                     <span className='modal-upload-filename' >: {props.studentCertificate ? props.studentCertificate.name : 'No file chosen'}</span>
                 </div>
 
                 <div className='modal-upload'>
-                    <input className='modal-upload-btn' onChange={handlePoliticalDoc} type='file' id="political-membership-doc"></input>
+                    <input className='modal-upload-btn' onChange={handlePoliticalDoc} accept="application/pdf" type='file' id="political-membership-doc"></input>
                     <label className='modal-upload-label' htmlFor='political-membership-doc'>
                         <i><FontAwesomeIcon icon={faPlus} /></i>Political Party Membership Document </label>
                     <span className='modal-upload-filename' >: {props.politicalDoc ? props.politicalDoc.name : 'No file chosen'}</span>
