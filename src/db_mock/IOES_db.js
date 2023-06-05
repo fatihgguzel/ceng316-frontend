@@ -3,14 +3,9 @@ export const roleActionArray={
     "student":{
         array:[
             {
-                name:"Student Action 1",
-                url:"/act-1",
+                name:"Candidate Application",
+                url:"/candidate-application",
 
-            },
-            {
-                name:"Student Action 2",
-                url:"/act-2",
-                
             },
             {
                 name: "View Candidates",
@@ -27,8 +22,8 @@ export const roleActionArray={
 
             },
             {
-                name:"Admin Action 2",
-                url:"/act-2",
+                name:"Review Candidate Applications",
+                url:"/candidate-applications",
                 
             },
         ],
