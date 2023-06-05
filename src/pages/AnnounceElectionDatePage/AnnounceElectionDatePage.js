@@ -7,12 +7,16 @@ import { UserContext } from '../../Providers/context';
 import { roleActionArray } from '../../db_mock/IOES_db';
 import { useNavigate } from 'react-router-dom';
 import api from '../../Providers/api';
+import { SpinnerCircularFixed } from 'spinners-react';
+import { formatDate } from '../../utils/FormatDate';
+
+
 
 
 export default function AnnounceElectionDatePage() {
   const { user } = useContext(UserContext);
   const navigation = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const today = new Date();
 
   const [startDate, setStartDate] = useState(null);
@@ -33,11 +37,10 @@ export default function AnnounceElectionDatePage() {
     console.log(user.departmentID);
     try {
       const response = await api.get(`/election/department/${user.departmentID}`);
-      console.log(response.status);
       if (response.status === 200) {
         setElection(response.data);
 
-      } 
+      }
     } catch (error) {
       if (error.response.status === 404) {
         setElection(null);
@@ -51,11 +54,18 @@ export default function AnnounceElectionDatePage() {
     if (startDate && endDate) {
       const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
+      const diffInDays = Math.floor((endDateObj - startDateObj) / (1000 * 60 * 60 * 24));
 
       if (startDateObj >= endDateObj) {
         setErrorMessage('The start day of the election cannot be the same day as the end date or later.');
-      } else {
+      }
+      else if (diffInDays > 60) {
+        setErrorMessage('The period between the start date and end date cannot exceed 60 days.');
+      }
+
+       else {
         try {
+          setIsLoading(true);
           const response = await api.post('/election/announce-election-date', {
             startDate: formatDate(startDateObj),
             endDate: formatDate(endDateObj),
@@ -67,7 +77,7 @@ export default function AnnounceElectionDatePage() {
             setStartDate(null);
             setEndDate(null);
             navigation('/dashboard');
-          } 
+          }
         } catch (error) {
           if (error.response.status === 400) {
             setErrorMessage('Bad request.');
@@ -76,17 +86,14 @@ export default function AnnounceElectionDatePage() {
           }
         }
       }
+
+      setIsLoading(false);
     } else {
       setErrorMessage('Please select start and end dates');
     }
+
   };
 
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   if (election && election.start_time && election.end_time) {
 
@@ -143,7 +150,7 @@ export default function AnnounceElectionDatePage() {
           onClick={handleAnnounceDate}
           disabled={!startDate || !endDate}
         >
-          Start Election
+          {isLoading ? <SpinnerCircularFixed color="#ffffff" size={18} thickness={100} /> : 'Start Election'}
         </button>
         {errorMessage && <p className="error-message-announce-page">{errorMessage}</p>}
       </div>

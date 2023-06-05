@@ -1,0 +1,179 @@
+import React, { useContext, useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import './RearrangeElectionDatePage.css';
+import Sidebar from '../../components/sidebar/SideBar';
+import { UserContext } from '../../Providers/context';
+import { useNavigate } from 'react-router-dom';
+import api from '../../Providers/api';
+import { SpinnerCircularFixed } from 'spinners-react';
+import { formatDate } from '../../utils/FormatDate';
+import { roleActionArray } from '../../db_mock/IOES_db';
+
+export default function RearrangeElectionDatePage() {
+    const { user } = useContext(UserContext);
+    const navigation = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const today = new Date();
+
+    const [election, setElection] = useState(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if (!user?.role === 'admin') {
+            navigation('/');
+        }
+        fetchElectionByDepartmentId();
+    }, []);
+
+    const fetchElectionByDepartmentId = async () => {
+        try {
+            const response = await api.get(`/election/department/${user.departmentID}`);
+            if (response.status === 200) {
+                setElection(response.data);
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 404) {
+                setElection(null);
+                setErrorMessage('Not found');
+            } else if (error.response && error.response.status === 500) {
+                setErrorMessage('Server error.');
+            }
+        }
+    };
+
+    const handleRearrangeDate = async () => {
+        if (startDate && endDate) {
+            const startDateObj = new Date(startDate);
+            const endDateObj = new Date(endDate);
+            const diffInDays = Math.floor((endDateObj - startDateObj) / (1000 * 60 * 60 * 24));
+
+            if (startDateObj >= endDateObj) {
+                setErrorMessage('The start day of the election cannot be the same day as the end date or later.');
+            } else if (diffInDays > 60) {
+                setErrorMessage('The period between the start date and end date cannot exceed 60 days.');
+            } else {
+                try {
+                    setIsLoading(true);
+                    const response = await api.put('/election/update-election-date', {
+                        startDate: formatDate(startDateObj),
+                        endDate: formatDate(endDateObj),
+                        departmentId: user.departmentID,
+                    });
+                    if (response.status === 201) {
+                        setErrorMessage('');
+                        setStartDate(null);
+                        setEndDate(null);
+                        navigation('/dashboard');
+                    }
+                } catch (error) {
+                    if (error.response && error.response.status === 400) {
+                        setErrorMessage('Bad request.');
+                    } else if (error.response && error.response.status === 500) {
+                        setErrorMessage('Server error.');
+                    }
+                }
+            }
+
+            setIsLoading(false);
+        } else {
+            setErrorMessage('Please select new start and end dates.');
+        }
+    };
+
+    const handleCancelElection = async () => {
+        try {
+            setIsLoading(true);
+            const response = await api.delete(`/election/${user.departmentID}`);
+            if (response.status === 204) {
+                setErrorMessage('');
+                setStartDate(null);
+                setEndDate(null);
+                navigation('/dashboard');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 404) {
+                setErrorMessage('Bad request.');
+            } else if (error.response && error.response.status === 500) {
+                setErrorMessage('Server error.');
+            }
+        }
+        setIsLoading(false);
+    };
+    if (election && election.start_time && election.end_time) {
+        return (
+            <div className="rearrange-page-container">
+                <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+                <div className="rearrange-date-container">
+                    <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
+                    <div className="date-container">
+                        <div className="date-label">Current Start Date:</div>
+                        <div className="current-date">{election.start_time ? new Date(election.start_time).toDateString() : ''}</div>
+                        <div className="date-label">Current End Date:</div>
+                        <div className="current-date">{election.end_time ? new Date(election.end_time).toDateString() : ''}</div>
+                    </div>
+                </div>
+
+                <div className="calendars-container">
+                    <div className="date-picker-container">
+                        <p id="announce-p">New Start Date</p>
+                        <DatePicker
+                            className="react-datepicker"
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            minDate={today}
+                            dateFormat="dd/MM/yyyy"
+                            showYearDropdown
+                            scrollableYearDropdown
+                            yearDropdownItemNumber={15}
+                            todayButton="Today"
+                            placeholderText="Select start date"
+                        />
+                    </div>
+                    <div className="date-picker-container">
+                        <p id="announce-p">New End Date</p>
+                        <DatePicker
+                            className="react-datepicker"
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            minDate={today}
+                            dateFormat="dd/MM/yyyy"
+                            showYearDropdown
+                            scrollableYearDropdown
+                            yearDropdownItemNumber={15}
+                            todayButton="Today"
+                            placeholderText="Select end date"
+                        />
+                    </div>
+                </div>
+                {errorMessage && <div className="error-message-rearrange-page">{errorMessage}</div>}
+                <div className="button-container">
+                    <button
+                        id="rearrange-button"
+                        onClick={handleRearrangeDate}
+                        disabled={!startDate || !endDate}
+                    >
+                        {isLoading ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Rearrange Date'}
+                    </button>
+                    <button id="cancel-button" onClick={handleCancelElection}>
+                        {isLoading ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Cancel Election'}
+                    </button>
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div className="rearrange-page-container">
+                <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+                <div className="rearrange-date-container">
+                    <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
+                    <p>No active election has been initiated in this department. If you want to start an election, go to the announce election date page.</p>
+                </div>
+            </div>
+
+        );
+    }
+
+}
