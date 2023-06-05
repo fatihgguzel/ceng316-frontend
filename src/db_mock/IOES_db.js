@@ -12,6 +12,10 @@ export const roleActionArray={
                 url:"/act-2",
                 
             },
+            {
+                name: "View Candidates",
+                url: "/candidates",
+            }
         ],
         text:"Student's Page"
     },
