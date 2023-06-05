@@ -8,7 +8,6 @@ import { roleActionArray } from '../../db_mock/IOES_db';
 import { useNavigate } from 'react-router-dom';
 import api from '../../Providers/api';
 import { SpinnerCircularFixed } from 'spinners-react';
-import { formatDate } from '../../utils/FormatDate';
 
 
 
@@ -23,6 +22,14 @@ export default function AnnounceElectionDatePage() {
   const [endDate, setEndDate] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [election, setElection] = useState(null);
+  const [isInitialized, setInitialized] = useState(false);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     if (!user?.role === 'admin') {
@@ -48,6 +55,9 @@ export default function AnnounceElectionDatePage() {
         setErrorMessage('Server error.');
       }
     }
+    finally {
+      setInitialized(true)
+    }
   };
 
   const handleAnnounceDate = async () => {
@@ -63,7 +73,7 @@ export default function AnnounceElectionDatePage() {
         setErrorMessage('The period between the start date and end date cannot exceed 60 days.');
       }
 
-       else {
+      else {
         try {
           setIsLoading(true);
           const response = await api.post('/election/announce-election-date', {
@@ -97,63 +107,91 @@ export default function AnnounceElectionDatePage() {
 
   if (election && election.start_time && election.end_time) {
 
-    return (
-      <div className="announce-page-container">
-        <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
-        <div className="announce-date-container">
-          <h2 id="announce-h2">Announce Election Date</h2>
-          <p>Election has already started in this department. If you want to change the election start and end dates, go to the rearrange page.</p>
+    if (isInitialized) {
+      return (
+        <div className="announce-page-container">
+          <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+          <div className="announce-date-container">
+            <h2 id="announce-h2">Announce Election Date</h2>
+            <p>Election has already started in this department. If you want to change the election start and end dates, go to the rearrange page.</p>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <div className="announce-page-container">
+          <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+          <div className="announce-date-container">
+            <h2 id="announce-h2">Announce Election Date</h2>
+          </div>
+        </div>
+      );
+
+    }
   }
 
-  return (
-    <div className="announce-page-container">
-      <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
-      <div className="announce-date-container">
-        <h2 id="announce-h2">Announce Election Date</h2>
-        <div className="calendars-container">
-          <div className="date-picker-container">
-            <p id="announce-p">Start Date</p>
-            <DatePicker
-              className="react-datepicker"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              minDate={today}
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              scrollableYearDropdown
-              yearDropdownItemNumber={15}
-              todayButton="Today"
-              placeholderText="Select start date"
-            />
-          </div>
-          <div className="date-picker-container">
-            <p id="announce-p">End Date</p>
-            <DatePicker
-              className="react-datepicker"
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              minDate={today}
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              scrollableYearDropdown
-              yearDropdownItemNumber={15}
-              todayButton="Today"
-              placeholderText="Select end date"
-            />
+  else {
+    if (isInitialized) {
+      return (
+        <div className="announce-page-container">
+          <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+          <div className="announce-date-container">
+            <h2 id="announce-h2">Announce Election Date</h2>
+            <div className="calendars-container">
+              <div className="date-picker-container">
+                <p id="announce-p">Start Date</p>
+                <DatePicker
+                  className="react-datepicker"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  minDate={today}
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableYearDropdown
+                  yearDropdownItemNumber={15}
+                  todayButton="Today"
+                  placeholderText="Select start date"
+                />
+              </div>
+              <div className="date-picker-container">
+                <p id="announce-p">End Date</p>
+                <DatePicker
+                  className="react-datepicker"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  minDate={today}
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableYearDropdown
+                  yearDropdownItemNumber={15}
+                  todayButton="Today"
+                  placeholderText="Select end date"
+                />
+              </div>
+            </div>
+            <button
+              id="se-button"
+              onClick={handleAnnounceDate}
+              disabled={!startDate || !endDate}
+            >
+              {isLoading ? <SpinnerCircularFixed color="#ffffff" size={18} thickness={100} /> : 'Start Election'}
+            </button>
+            {errorMessage && <p className="error-message-announce-page">{errorMessage}</p>}
           </div>
         </div>
-        <button
-          id="se-button"
-          onClick={handleAnnounceDate}
-          disabled={!startDate || !endDate}
-        >
-          {isLoading ? <SpinnerCircularFixed color="#ffffff" size={18} thickness={100} /> : 'Start Election'}
-        </button>
-        {errorMessage && <p className="error-message-announce-page">{errorMessage}</p>}
-      </div>
-    </div>
-  );
+      );
+    }
+    else {
+      return (
+        <div className="announce-page-container">
+          <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+          <div className="announce-date-container">
+            <h2 id="announce-h2">Announce Election Date</h2>
+          </div>
+        </div>
+      );
+    }
+
+  }
 }
