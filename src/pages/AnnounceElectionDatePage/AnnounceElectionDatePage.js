@@ -32,11 +32,7 @@ export default function AnnounceElectionDatePage() {
   };
 
   useEffect(() => {
-    if (!user?.role === 'admin') {
-      navigation('/');
-    } else {
       fetchElectionByDepartmentId();
-    }
   }, []);
 
   const fetchElectionByDepartmentId = async () => {
@@ -51,7 +47,8 @@ export default function AnnounceElectionDatePage() {
       if (error.response.status === 404) {
         setElection(null);
       } else if (error.response.status === 500) {
-        setErrorMessage('Server error.');
+        setErrorMessage(error.errorMessage);
+
       }
     }
     finally {
@@ -105,28 +102,17 @@ export default function AnnounceElectionDatePage() {
 
   if (election && election.start_time && election.end_time) {
 
-    if (isInitialized) {
-      return (
-        <div className="announce-page-container">
-          <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
-          <div className="announce-date-container">
-            <h2 id="announce-h2">Announce Election Date</h2>
-            <p>Election has already started in this department. If you want to change the election start and end dates, go to the rearrange page.</p>
-          </div>
-        </div>
-      );
-    }
-    else {
-      return (
-        <div className="announce-page-container">
-          <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
-          <div className="announce-date-container">
-            <h2 id="announce-h2">Announce Election Date</h2>
-          </div>
-        </div>
-      );
 
-    }
+      return (
+        
+        <div className="announce-page-container">
+          <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+          <div className="announce-date-container">
+            <h2 id="announce-h2">Announce Election Date</h2>
+            {isInitialized?<p>Election has already started in this department. If you want to change the election start and end dates, go to the rearrange page.</p>:null}
+          </div>
+        </div>
+      );
   }
 
   else {

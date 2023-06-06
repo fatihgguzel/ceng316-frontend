@@ -191,29 +191,17 @@ export default function RearrangeElectionDatePage() {
             );
         }
     } else {
-        if (isInitialized) {
+        
             return (
                 <div className="rearrange-page-container">
                     <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
                     <div className="rearrange-date-container">
                         <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
-                        <p>No active election has been initiated in this department. If you want to start an election, go to the announce election date page.</p>
+                    {isInitialized? <p>No active election has been initiated in this department. If you want to start an election, go to the announce election date page.</p>:null}
                     </div>
                 </div>
 
             );
-        }
-        else {
-            return (
-                <div className="rearrange-page-container">
-                    <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
-                    <div className="rearrange-date-container">
-                        <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
-                    </div>
-                </div>
-
-            );
-        }
     }
 
 }

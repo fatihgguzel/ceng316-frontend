@@ -99,8 +99,9 @@ export default function MainPage() {
                             <tr>
                                 <td>{formatDate(election?.start_time) || "-"}</td>
                                 <td>{formatDate(election?.end_time) || "-"}</td>
-                                <td>{userDepartmentName || "-"}</td>
-                                <td>{userFacultyName || "-"}</td>
+                                <td>{election ? userDepartmentName || "-" : "-"}</td>
+                                <td>{election ? userFacultyName || "-" : "-"}</td>
+
                                 <td>{election?.round || "-"}</td>
                                 <td>{calculateRemainingTime() || "-"}</td>
                             </tr>
