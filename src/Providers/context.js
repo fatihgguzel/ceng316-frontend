@@ -7,12 +7,14 @@ export const UserContext = createContext({
   authToken: '',
   departmentID: null,
   role: '',
+  departmentName: '',
   setUserID: () => {},
   setUserName: () => {},
   setEmail: () => {},
   setAuthToken: () => {},
   setDepartmentID: () => {},
   setRole: () => {},
+  setDepartmentName: () => {},
   logout: () => {},
   setUser: (UserInfo, response) => {},
 });
@@ -24,6 +26,7 @@ export const UserContextProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState('');
   const [departmentID, setDepartmentID] = useState(null);
   const [role, setRole] = useState('');
+  const [departmentName, setDepartmentName] = useState('');
 
   const logout = () => {
     setUserID(null);
@@ -32,6 +35,7 @@ export const UserContextProvider = ({ children }) => {
     setAuthToken('');
     setDepartmentID(null);
     setRole('');
+    setDepartmentName('');
   }
 
   const setUser = (UserInfo, response) => {
@@ -41,6 +45,7 @@ export const UserContextProvider = ({ children }) => {
     user.setAuthToken('Bearer ' + response.data.accessToken);
     user.setDepartmentID(UserInfo.department_id);
     user.setRole(UserInfo.role);
+    user.setDepartmentName(UserInfo.department_name);
   }
 
   const user = {
@@ -50,12 +55,14 @@ export const UserContextProvider = ({ children }) => {
     authToken,
     departmentID,
     role,
+    departmentName,
     setUserID,
     setUserName,
     setEmail,
     setAuthToken,
     setDepartmentID,
     setRole,
+    setDepartmentName,
     logout,
     setUser,
   };

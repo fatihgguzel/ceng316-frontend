@@ -7,6 +7,10 @@ export const roleActionArray={
                 url:"/candidate-application",
 
             },
+            {
+                name: "View Candidates",
+                url: "/candidates",
+            }
         ],
         text:"Student's Page"
     },

@@ -17,6 +17,7 @@ import RearrangeElectionDatePage from './pages/RearrangeElectionDatePage/Rearran
 import { useNavigate } from 'react-router-dom';
 import PrivateRoutes from './utils/PrivateRoutes';
 import CandidateApplicationPage from './pages/CandidateApplicationPage/CandidateApplicationPage';
+import Candidates from './pages/Candidates/Candidates';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/help" element={<Help />} />
               <Route path="/candidate-application" element={<CandidateApplicationPage/>} />
+              <Route path="/candidates" element={<Candidates />} />
             </Route>
           </Routes>
         </div>

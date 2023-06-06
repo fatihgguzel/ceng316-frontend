@@ -1,0 +1,114 @@
+.candidates-content {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.candidates-wrapper {
+  width: 100%;
+}
+
+.candidates-title-wrapper {
+  text-align: center;
+}
+
+.candidates-header {
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
+}
+
+.candidates-container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+  gap: 2rem;
+  justify-content: center;
+  overflow: auto;
+}
+
+.candidate-card {
+  overflow: hidden;
+  box-shadow: 0 5px 10px grey;
+  border-radius: 0.2rem;
+  border: 0.1rem solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.voted-candidate-card {
+  border: 3px solid green;
+}
+
+.candidate-card:hover {
+  border-color: red;
+}
+
+.candidate-avatar {
+  height: 12rem;
+  width: 100%;
+  object-fit: contain;
+}
+
+.candidate-name {
+  text-align: center;
+}
+
+.submit-vote-btn {
+  margin: 0 3rem 1rem 3rem;
+}
+
+.vote-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.vote-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.vote-modal h2 {
+  margin-top: 0;
+}
+
+.vote-modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.vote-btn {
+  margin-left: 5rem;
+  width: 6rem;
+  height: 2rem;
+}
+
+.cancel-btn {
+  margin-right: 5rem;
+  width: 6rem;
+  height: 2rem;
+  background-color: grey;
+}
+
+.continue-btn {
+  width: 6rem;
+  height: 2rem;
+  background-color: green;
+  margin: auto;
+}
+
+#candidates-loader {
+  text-align: center;
+}
