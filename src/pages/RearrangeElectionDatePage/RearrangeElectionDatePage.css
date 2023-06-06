@@ -1,24 +1,26 @@
-.announce-date-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px;
-  margin: 100px auto; 
-  max-width: 500px; 
-  background-color: #f9f9f9; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-}
 
-#announce-h2 {
-  text-align: center;
-  margin-bottom: 20px; 
-  color: #333; 
+.rearrange-date-container {
+
+    max-width: 500px;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    margin-left: auto; 
+    margin-right: auto;
+
 }
 
 #announce-p {
   font-weight: bold;
   color: #555; 
+}
+
+#rearrange-h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .calendars-container {
@@ -27,11 +29,32 @@
   margin-bottom: 20px;
 }
 
+.date-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.date-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.current-date {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
 .date-picker-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 10px;
+
+
 }
+
 
 .react-datepicker {
   font-family: Arial, sans-serif;
@@ -48,7 +71,7 @@
   border-bottom: 1px solid #ccc;
   padding: 10px;
   text-align: center;
-  color: #333; 
+  color: #333;
 }
 
 .react-datepicker__day--today {
@@ -75,7 +98,15 @@
   font-weight: bold;
 }
 
-#se-button {
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+#rearrange-button,
+#cancel-button {
   border: none;
   background-color: #a30000;
   color: #fff;
@@ -85,22 +116,25 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-bottom: 30px; 
+  margin-bottom: 30px;
 }
 
-#se-button:hover {
+#rearrange-button:hover,
+#cancel-button:hover {
   background-color: #8c0000;
 }
 
-.error-message-announce-page {
-  margin-top: 20px; 
+.button-container > button:not(:last-child) {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.error-message-rearrange-page {
+  margin-top: 20px;
   color: #a30000;
   font-size: 16px;
   font-weight: bold;
-  text-align: center; 
+  text-align: center;
 }
-
-
-
 
 
