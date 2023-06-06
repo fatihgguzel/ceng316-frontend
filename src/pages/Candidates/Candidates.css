@@ -12,7 +12,7 @@
   text-align: center;
 }
 
-.candidates-header{
+.candidates-header {
   margin-top: 0.1rem;
   margin-bottom: 0.1rem;
 }
@@ -21,9 +21,8 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit,
-  minmax(12rem, 16rem));
-  gap:2rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+  gap: 2rem;
   justify-content: center;
   overflow: auto;
 }
@@ -38,21 +37,25 @@
   justify-content: space-between;
 }
 
+.voted-candidate-card {
+  border: 3px solid green;
+}
+
 .candidate-card:hover {
   border-color: red;
 }
 
-.candidate-avatar{
+.candidate-avatar {
   height: 12rem;
   width: 100%;
-  object-fit:contain;
+  object-fit: contain;
 }
 
-.candidate-name{
+.candidate-name {
   text-align: center;
 }
 
-.submit-vote-btn{
+.submit-vote-btn {
   margin: 0 3rem 1rem 3rem;
 }
 
@@ -86,15 +89,26 @@
   margin-top: 40px;
 }
 
-.vote-btn{
+.vote-btn {
   margin-left: 5rem;
   width: 6rem;
   height: 2rem;
 }
 
-.cancel-btn{
+.cancel-btn {
   margin-right: 5rem;
   width: 6rem;
   height: 2rem;
   background-color: grey;
+}
+
+.continue-btn {
+  width: 6rem;
+  height: 2rem;
+  background-color: green;
+  margin: auto;
+}
+
+#candidates-loader {
+  text-align: center;
 }

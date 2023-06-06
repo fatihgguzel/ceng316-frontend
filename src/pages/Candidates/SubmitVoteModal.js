@@ -2,7 +2,7 @@ import React from "react";
 
 const SubmitVoteModal = ({ isOpen, onVote, onCancel, candidateName }) => {
   if (!isOpen) {
-    return null; // If the modal is not open, don't render anything
+    return null;
   }
 
   return (
