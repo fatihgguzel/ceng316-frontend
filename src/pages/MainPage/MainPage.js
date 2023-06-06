@@ -39,12 +39,8 @@ export default function MainPage() {
                 const userDepartment = response.data.find(
                     department => department.id === parseInt(user.departmentID)
                 );
-                console.log(userDepartment)
                 if (userDepartment) {
                     const { department_name, faculty_name } = userDepartment;
-                    console.log(department_name);
-                    console.log(faculty_name);
-
                     setUserDepartmentName(department_name);
                     setUserFacultyName(faculty_name);
                 }
