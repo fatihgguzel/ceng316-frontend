@@ -12,7 +12,8 @@ import { roleActionArray } from '../../db_mock/IOES_db';
 export default function RearrangeElectionDatePage() {
     const { user } = useContext(UserContext);
     const navigation = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingRearrange, setIsLoadingRearrange] = useState(false);
+    const [isLoadingCancel, setIsLoadingCancel] = useState(false);
     const today = new Date();
 
     const [election, setElection] = useState(null);
@@ -67,7 +68,7 @@ export default function RearrangeElectionDatePage() {
                 setErrorMessage('The period between the start date and end date cannot exceed 60 days.');
             } else {
                 try {
-                    setIsLoading(true);
+                    setIsLoadingRearrange(true);
                     const response = await api.put('/election/update-election-date', {
                         startDate: formatDate(startDateObj),
                         endDate: formatDate(endDateObj),
@@ -88,7 +89,7 @@ export default function RearrangeElectionDatePage() {
                 }
             }
 
-            setIsLoading(false);
+            setIsLoadingRearrange(false);
         } else {
             setErrorMessage('Please select new start and end dates.');
         }
@@ -96,7 +97,7 @@ export default function RearrangeElectionDatePage() {
 
     const handleCancelElection = async () => {
         try {
-            setIsLoading(true);
+            setIsLoadingCancel(true);
             const response = await api.delete(`/election/department/${user.departmentID}`);
             if (response.status === 200) {
                 setErrorMessage('');
@@ -111,7 +112,7 @@ export default function RearrangeElectionDatePage() {
                 setErrorMessage('Server error.');
             }
         }
-        setIsLoading(false);
+        setIsLoadingCancel(false);
     };
     if (election && election.start_time && election.end_time) {
         if (isInitialized) {
@@ -167,10 +168,10 @@ export default function RearrangeElectionDatePage() {
                             onClick={handleRearrangeDate}
                             disabled={!startDate || !endDate}
                         >
-                            {isLoading ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Rearrange Date'}
+                            {isLoadingRearrange  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Rearrange Date'}
                         </button>
                         <button id="cancel-button" onClick={handleCancelElection}>
-                            {isLoading ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Cancel Election'}
+                            {isLoadingCancel  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Cancel Election'}
                         </button>
                     </div>
                 </div>
