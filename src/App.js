@@ -12,6 +12,7 @@ import AnnounceElectionDatePage from './pages/AnnounceElectionDatePage/AnnounceE
 import ReviewCandidatesPage from './pages/ReviewCandidatesPage/ReviewCandidatesPage';
 import Profile from './pages/Profile/Profile';
 import Help from './pages/Help/Help';
+import RearrangeElectionDatePage from './pages/RearrangeElectionDatePage/RearrangeElectionDatePage'
 
 import { useNavigate } from 'react-router-dom';
 import PrivateRoutes from './utils/PrivateRoutes';
@@ -30,7 +31,8 @@ function App() {
             <Route element={<PrivateRoutes roleRestrictions={['admin']}/>}>
               <Route path="/announce-election-date" element={<AnnounceElectionDatePage />} />
               <Route path="/candidate-applications" element={<ReviewCandidatesPage/>}/>
-            </Route>
+              <Route path="/rearrange-election-date" element={<RearrangeElectionDatePage/>}/> 
+              </Route>
             <Route element={<PrivateRoutes roleRestrictions={['admin', 'student']}/>}>
               <Route path="/dashboard" element={<MainPage />} />
               <Route path="/profile" element={<Profile />} />
