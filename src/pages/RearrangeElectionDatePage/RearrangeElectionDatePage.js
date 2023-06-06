@@ -119,60 +119,62 @@ export default function RearrangeElectionDatePage() {
             return (
                 <div className="rearrange-page-container">
                     <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
-                    <div className="rearrange-date-container">
-                        <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
-                        <div className="date-container">
-                            <div className="date-label">Current Start Date:</div>
-                            <div className="current-date">{election.start_time ? new Date(election.start_time).toDateString() : ''}</div>
-                            <div className="date-label">Current End Date:</div>
-                            <div className="current-date">{election.end_time ? new Date(election.end_time).toDateString() : ''}</div>
+                    <div className='rearrange-page-content-wrapper'>
+                        <div className="rearrange-date-container">
+                            <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
+                            <div className="date-container">
+                                <div className="date-label">Current Start Date:</div>
+                                <div className="current-date">{election.start_time ? new Date(election.start_time).toDateString() : ''}</div>
+                                <div className="date-label">Current End Date:</div>
+                                <div className="current-date">{election.end_time ? new Date(election.end_time).toDateString() : ''}</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="calendars-container">
-                        <div className="date-picker-container">
-                            <p id="announce-p">New Start Date</p>
-                            <DatePicker
-                                className="react-datepicker"
-                                selected={startDate}
-                                onChange={(date) => setStartDate(date)}
-                                minDate={today}
-                                dateFormat="dd/MM/yyyy"
-                                showYearDropdown
-                                scrollableYearDropdown
-                                yearDropdownItemNumber={15}
-                                todayButton="Today"
-                                placeholderText="Select start date"
-                            />
+                        <div className="calendars-container">
+                            <div className="date-picker-container">
+                                <p id="announce-p">New Start Date</p>
+                                <DatePicker
+                                    className="react-datepicker"
+                                    selected={startDate}
+                                    onChange={(date) => setStartDate(date)}
+                                    minDate={today}
+                                    dateFormat="dd/MM/yyyy"
+                                    showYearDropdown
+                                    scrollableYearDropdown
+                                    yearDropdownItemNumber={15}
+                                    todayButton="Today"
+                                    placeholderText="Select start date"
+                                />
+                            </div>
+                            <div className="date-picker-container">
+                                <p id="announce-p">New End Date</p>
+                                <DatePicker
+                                    className="react-datepicker"
+                                    selected={endDate}
+                                    onChange={(date) => setEndDate(date)}
+                                    minDate={today}
+                                    dateFormat="dd/MM/yyyy"
+                                    showYearDropdown
+                                    scrollableYearDropdown
+                                    yearDropdownItemNumber={15}
+                                    todayButton="Today"
+                                    placeholderText="Select end date"
+                                />
+                            </div>
                         </div>
-                        <div className="date-picker-container">
-                            <p id="announce-p">New End Date</p>
-                            <DatePicker
-                                className="react-datepicker"
-                                selected={endDate}
-                                onChange={(date) => setEndDate(date)}
-                                minDate={today}
-                                dateFormat="dd/MM/yyyy"
-                                showYearDropdown
-                                scrollableYearDropdown
-                                yearDropdownItemNumber={15}
-                                todayButton="Today"
-                                placeholderText="Select end date"
-                            />
+                        {errorMessage && <div className="error-message-rearrange-page">{errorMessage}</div>}
+                        <div className="button-container">
+                            <button
+                                id="rearrange-button"
+                                onClick={handleRearrangeDate}
+                                disabled={!startDate || !endDate}
+                            >
+                                {isLoadingRearrange  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Rearrange Date'}
+                            </button>
+                            <button id="cancel-button" onClick={handleCancelElection}>
+                                {isLoadingCancel  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Cancel Election'}
+                            </button>
                         </div>
-                    </div>
-                    {errorMessage && <div className="error-message-rearrange-page">{errorMessage}</div>}
-                    <div className="button-container">
-                        <button
-                            id="rearrange-button"
-                            onClick={handleRearrangeDate}
-                            disabled={!startDate || !endDate}
-                        >
-                            {isLoadingRearrange  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Rearrange Date'}
-                        </button>
-                        <button id="cancel-button" onClick={handleCancelElection}>
-                            {isLoadingCancel  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Cancel Election'}
-                        </button>
                     </div>
                 </div>
             );
