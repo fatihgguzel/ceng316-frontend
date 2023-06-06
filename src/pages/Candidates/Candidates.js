@@ -35,7 +35,6 @@ export default function Candidates() {
         if (res.data.length > 0) {
           setIsActiveElection(true);
           setElectionId(res.data[0].id);
-          console.log(res.data);
         }
       } catch (error) {
         alert(error.res.data.message);
@@ -51,7 +50,6 @@ export default function Candidates() {
           name: candidate.candidate_name,
           id: candidate.candidate_id,
         }));
-        console.log(filteredCandidates);
         setCandidates(filteredCandidates);
       } catch (error) {
         console.log(error.res.data.message);
@@ -87,7 +85,6 @@ export default function Candidates() {
     setIsModalOpen(true);
     setSelectedCandidateName(candidate.name);
     setSelectedCandidateId(candidate.id);
-    console.log(selectedCandidateId);
   };
 
   const closeModal = () => {
