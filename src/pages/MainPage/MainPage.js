@@ -11,6 +11,7 @@ export default function MainPage() {
     const [errorMessage, setErrorMessage] = useState('');
     const [userDepartmentName, setUserDepartmentName] = useState('');
     const [userFacultyName, setUserFacultyName] = useState('');
+    const [electionWinners, setElectionWinners] = useState(null);
 
 
 
@@ -58,6 +59,22 @@ export default function MainPage() {
         fetchDepartmentInfo();
         fetchElectionByDepartmentId();
     }, [user.departmentId]);
+
+    useEffect(() => {
+        const getWinners = async () => {
+            try {
+                const response = await api.get(`/student/election-results/${user.departmentID}`)
+
+                if(response.status){
+                    setElectionWinners(response.data.map(item => item.name));
+                }
+                
+            } catch (error) {
+            }
+            
+        }
+        getWinners();
+    },[])
 
     const formatDate = (date) => {
         return date ? new Date(date).toLocaleDateString() : '';
@@ -108,6 +125,13 @@ export default function MainPage() {
                         </tbody>
                     </table>
                 </div>
+                {electionWinners ? (
+                <div className='election-winners-wrapper'>
+                    <h3>Last Election Winners</h3>
+                    <div>
+                        {electionWinners.toString()} 
+                    </div>
+                </div>) : ('')}
             </div>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>

@@ -21,6 +21,7 @@ export default function RearrangeElectionDatePage() {
     const [endDate, setEndDate] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [isInitialized, setInitialized] = useState(false);
+    const [finishElectionLoading, setFinishElectionLoading] = useState(false);
 
     const formatDate = (date) => {
         const year = date.getFullYear();
@@ -95,6 +96,23 @@ export default function RearrangeElectionDatePage() {
         }
     };
 
+    const handleFinishElection = async () => { 
+        try{
+            setFinishElectionLoading(true);
+            const response = await api.post('/election/end-election',
+            {
+                "departmentId": user.departmentID
+            })
+        }
+        catch(error){
+            alert(error.response.message)
+        }
+        finally{
+            setFinishElectionLoading(false);
+        }
+
+    }
+
     const handleCancelElection = async () => {
         try {
             setIsLoadingCancel(true);
@@ -127,6 +145,7 @@ export default function RearrangeElectionDatePage() {
                                 <div className="current-date">{election.start_time ? new Date(election.start_time).toDateString() : ''}</div>
                                 <div className="date-label">Current End Date:</div>
                                 <div className="current-date">{election.end_time ? new Date(election.end_time).toDateString() : ''}</div>
+                                <button onClick={handleFinishElection} className='finish-election-btn'>{finishElectionLoading ? (<SpinnerCircularFixed size={15} thickness={150} speed={100} color="rgba(255, 255, 255, 1)" secondaryColor="rgba(0, 0, 0, 0)" />) : 'Finish Election'}</button>
                             </div>
                         </div>
 

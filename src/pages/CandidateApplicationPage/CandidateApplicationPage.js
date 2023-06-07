@@ -5,6 +5,7 @@ import Sidebar from "../../components/sidebar/SideBar";
 import { roleActionArray } from "../../db_mock/IOES_db";
 import DataTable from 'react-data-table-component';
 import api from '../../Providers/api';
+import { SpinnerCircularFixed } from 'spinners-react';
 import { formatDate } from '../../utils/FormatDate';
 import CandidateApplicationModal from '../../components/ApplicationModal/CandidateApplicationModal';
 
@@ -24,6 +25,8 @@ export default function CandidateApplicationPage(){
     const [pending, setPending] = useState(true);
     const [applyDisabled, setApplyDisabled] = useState(true);
     const [editDisabled, setEditDisabled] = useState(true);
+    const [isElectionStarted, setIsElectionStarted] = useState(false);
+    const [electionInfoLoading, setElectionInfoLoading] = useState(true);
 
     useEffect(()=> {
         const getCandidateInfoInitial = async () => {
@@ -45,8 +48,28 @@ export default function CandidateApplicationPage(){
                 setPending(false)
             }
         }
+        const getIsElectionStarted = async () => {
+            try{
+                const response = await api.get(`/student/active-election-department/${user.departmentID}`)
+                if(response.status === 200){
+                    setIsElectionStarted(true);
+                }
+            }
+            catch(error){
+                if(error.response.status === 404){
+                    setIsElectionStarted(false);
+                }
+                else{
+                    alert(error.response.data.message);
+                }
+            }
+            finally{
+                setElectionInfoLoading(false);
+            }
+        }
+        getIsElectionStarted();
         getCandidateInfoInitial();
-    })
+    }, [])
 
 
 
@@ -123,41 +146,49 @@ export default function CandidateApplicationPage(){
 
 
     return (
+
         <div className='candidate-application-page'>
             <Sidebar roleActionArray={roleActionArray} userRole={user.role}/>
             <div className='candidate-application-page-content'>
-                <div className='data-table'>
-                    <DataTable
-                        columns={tableColumns}
-                        data={tableRows}
-                        customStyles={customStyles}
-                        progressPending={pending}
-                        
-                    />
-                </div>
-                <div className='page-actions'>
-                    <button disabled={applyDisabled}  onClick={() =>openModal(false)} className='candidate-apply-btn'>Apply</button>
-                    <button disabled={editDisabled}  onClick={() =>openModal(true)} className='candidate-edit-btn'>Edit Files</button>
-                </div>
+                {electionInfoLoading ? (<SpinnerCircularFixed size={150} thickness={100} speed={100} color="rgba(162,1,0,255)" secondaryColor="rgba(0, 0, 0, 0)" />) : (
+                    isElectionStarted ? (
+                        <>
+                            <div className='data-table'>
+                            <DataTable
+                            columns={tableColumns}
+                            data={tableRows}
+                            customStyles={customStyles}
+                            progressPending={pending}
+    
+                            />
+                            </div>
+                            <div className='page-actions'>
+                            <button disabled={applyDisabled}  onClick={() =>openModal(false)} className='candidate-apply-btn'>Apply</button>
+                            <button disabled={editDisabled}  onClick={() =>openModal(true)} className='candidate-edit-btn'>Edit Files</button>
+                            </div>
+    
+                            {isModalOpen &&
+                            <CandidateApplicationModal
+                            isEditModal={isEditModal}
+                            onClose={closeModal}
+                            studentLetter={studentLetter}
+                            studentCertificate={studentCertificate}
+                            politicalDoc={politicalDoc}
+                            setStudentLetter={setStudentLetter}
+                            setStudentCertificate={setStudentCertificate}
+                            setPoliticalDoc={setPoliticalDoc}
+                            setApplicationDate={setApplicationDate}
+                            setCandidateName={setCandidateName}
+                            setCandidateDepartment={setCandidateDepartment}
+                            setReviewerComment={setReviewerComment}
+                            setCandidateApplicationStatus={setCandidateApplicationStatus}
+                            setApplyDisabled={setApplyDisabled}
+                            setEditDisabled={setEditDisabled}
+                            />}
+                        </>
+                    ) : <h2>There is no active election in {user.departmentName} </h2>
+                )}
                 
-                {isModalOpen &&
-                 <CandidateApplicationModal
-                    isEditModal={isEditModal}
-                    onClose={closeModal}
-                    studentLetter={studentLetter}
-                    studentCertificate={studentCertificate}
-                    politicalDoc={politicalDoc}
-                    setStudentLetter={setStudentLetter}
-                    setStudentCertificate={setStudentCertificate}
-                    setPoliticalDoc={setPoliticalDoc}
-                    setApplicationDate={setApplicationDate}
-                    setCandidateName={setCandidateName}
-                    setCandidateDepartment={setCandidateDepartment}
-                    setReviewerComment={setReviewerComment}
-                    setCandidateApplicationStatus={setCandidateApplicationStatus}
-                    setApplyDisabled={setApplyDisabled}
-                    setEditDisabled={setEditDisabled}
-                    />}
             </div>
             
         </div>
