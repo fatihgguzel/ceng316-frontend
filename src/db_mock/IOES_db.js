@@ -27,7 +27,7 @@ export const roleActionArray={
                 
             },
             {
-                name:"Rearrange/Cancel Election Date",
+                name:"Rearrange/Cancel/Finish Election ",
                 url:"/rearrange-election-date",
                 
             },
