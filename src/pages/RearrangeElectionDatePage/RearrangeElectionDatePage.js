@@ -15,6 +15,8 @@ export default function RearrangeElectionDatePage() {
     const [isLoadingRearrange, setIsLoadingRearrange] = useState(false);
     const [isLoadingCancel, setIsLoadingCancel] = useState(false);
     const today = new Date();
+    const [candidates, setCandidates] = useState([]);
+
 
     const [election, setElection] = useState(null);
     const [startDate, setStartDate] = useState(null);
@@ -37,6 +39,24 @@ export default function RearrangeElectionDatePage() {
         fetchElectionByDepartmentId();
     }, []);
 
+    const fetchCandidatesByDepartmentId = async () => {
+        try {
+            const response = await api.get(`/candidate/${user.departmentID}`);
+            if (response.status === 200) {
+                setCandidates(response.data);
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 404) {
+                setCandidates([]);
+            } else if (error.response && error.response.status === 500) {
+                setErrorMessage(error);
+            }
+        }
+    };
+
+
+
+
     const fetchElectionByDepartmentId = async () => {
         try {
             const response = await api.get(`/election/department/${user.departmentID}`);
@@ -54,6 +74,7 @@ export default function RearrangeElectionDatePage() {
         }
         finally {
             setInitialized(true);
+            fetchCandidatesByDepartmentId();
         }
     };
 
@@ -96,22 +117,37 @@ export default function RearrangeElectionDatePage() {
         }
     };
 
-    const handleFinishElection = async () => { 
-        try{
+    const handleFinishElection = async () => {
+        try {
             setFinishElectionLoading(true);
-            const response = await api.post('/election/end-election',
-            {
-                "departmentId": user.departmentID
-            })
-        }
-        catch(error){
-            alert(error.response.message)
-        }
-        finally{
+            const currentDate = new Date();
+            const startDateObj = new Date(election.start_time);
+
+            if (currentDate < startDateObj) {
+                setErrorMessage('The election has not started yet.You cannot click this button');
+            } else {
+                const response = await api.post('/election/end-election', {
+                    departmentId: user.departmentID,
+                });
+
+                if (response.status === 200) {
+                    setErrorMessage('');
+                    setStartDate(null);
+                    setEndDate(null);
+                    navigation('/dashboard');
+                }
+            }
+        } catch (error) {
+            if (error.response && error.response.message) {
+                setErrorMessage(error.response.message);
+            } else {
+                setErrorMessage('An error occurred while finishing the election.');
+            }
+        } finally {
             setFinishElectionLoading(false);
         }
+    };
 
-    }
 
     const handleCancelElection = async () => {
         try {
@@ -145,7 +181,11 @@ export default function RearrangeElectionDatePage() {
                                 <div className="current-date">{election.start_time ? new Date(election.start_time).toDateString() : ''}</div>
                                 <div className="date-label">Current End Date:</div>
                                 <div className="current-date">{election.end_time ? new Date(election.end_time).toDateString() : ''}</div>
-                                <button onClick={handleFinishElection} className='finish-election-btn'>{finishElectionLoading ? (<SpinnerCircularFixed size={15} thickness={150} speed={100} color="rgba(255, 255, 255, 1)" secondaryColor="rgba(0, 0, 0, 0)" />) : 'Finish Election'}</button>
+                                <button
+                                    onClick={handleFinishElection}
+                                    className='finish-election-btn'
+                                    disabled={candidates.length === 0 || finishElectionLoading || new Date() < new Date(election.start_time)}
+                                >{finishElectionLoading ? (<SpinnerCircularFixed size={15} thickness={150} speed={100} color="rgba(255, 255, 255, 1)" secondaryColor="rgba(0, 0, 0, 0)" />) : 'Finish Election'}</button>
                             </div>
                         </div>
 
@@ -188,10 +228,10 @@ export default function RearrangeElectionDatePage() {
                                 onClick={handleRearrangeDate}
                                 disabled={!startDate || !endDate}
                             >
-                                {isLoadingRearrange  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Rearrange Date'}
+                                {isLoadingRearrange ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Rearrange Date'}
                             </button>
                             <button id="cancel-button" onClick={handleCancelElection}>
-                                {isLoadingCancel  ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Cancel Election'}
+                                {isLoadingCancel ? <SpinnerCircularFixed size={30} color="#fff" /> : 'Cancel Election'}
                             </button>
                         </div>
                     </div>
@@ -210,17 +250,17 @@ export default function RearrangeElectionDatePage() {
             );
         }
     } else {
-        
-            return (
-                <div className="rearrange-page-container">
-                    <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
-                    <div className="rearrange-date-container">
-                        <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
-                    {isInitialized? <p>No active election has been initiated in this department. If you want to start an election, go to the announce election date page.</p>:null}
-                    </div>
-                </div>
 
-            );
+        return (
+            <div className="rearrange-page-container">
+                <Sidebar roleActionArray={roleActionArray} userRole={'admin'}></Sidebar>
+                <div className="rearrange-date-container">
+                    <h2 id="rearrange-h2">Rearrange/Cancel Election Date</h2>
+                    {isInitialized ? <p>No active election has been initiated in this department. If you want to start an election, go to the announce election date page.</p> : null}
+                </div>
+            </div>
+
+        );
     }
 
 }
