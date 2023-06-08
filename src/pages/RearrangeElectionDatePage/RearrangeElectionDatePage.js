@@ -138,7 +138,7 @@ export default function RearrangeElectionDatePage() {
                 }
             }
         } catch (error) {
-            if (error.response && error.response.message) {
+            if (error.response && error.response.message === 400) {
                 setErrorMessage(error.response.message);
             } else {
                 setErrorMessage('An error occurred while finishing the election.');
