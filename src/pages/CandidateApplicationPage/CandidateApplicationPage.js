@@ -52,7 +52,9 @@ export default function CandidateApplicationPage(){
             try{
                 const response = await api.get(`/student/active-election-department/${user.departmentID}`)
                 if(response.status === 200){
-                    setIsElectionStarted(true);
+                    if(response.data.length > 0){
+                        setIsElectionStarted(true)
+                    }
                 }
             }
             catch(error){
