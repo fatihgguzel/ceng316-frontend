@@ -50,11 +50,9 @@ export default function CandidateApplicationPage(){
         }
         const getIsElectionStarted = async () => {
             try{
-                const response = await api.get(`/student/active-election-department/${user.departmentID}`)
+                const response = await api.get(`/election/department/${user.departmentID}`)
                 if(response.status === 200){
-                    if(response.data.length > 0){
-                        setIsElectionStarted(true)
-                    }
+                    setIsElectionStarted(true)
                 }
             }
             catch(error){
