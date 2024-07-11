@@ -89,7 +89,7 @@ export default function MainPage() {
             if (timeDiff > 0) {
                 const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
-                return `${days} day(s) and ${hours} hour(s) left until the election`;
+                return `${days} day(s) and ${hours} hour(s) left until the election's end`;
             }
         }
 
